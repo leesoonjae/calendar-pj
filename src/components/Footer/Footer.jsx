@@ -27,10 +27,10 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterInner>
-        <h4>김재현</h4>
-        <h4>정하나</h4>
-        <h4>변시윤</h4>
-        <h4>이순재</h4>
+        <div>김재현</div>
+        <div>정하나</div>
+        <div>변시윤</div>
+        <div>이순재</div>
       </FooterInner>
     </FooterContainer>
   );
