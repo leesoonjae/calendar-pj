@@ -63,7 +63,8 @@ const CommentForm = () => {
   // 댓글 저장
   const saveCommentHandler = (e) => {
     //   e.preventDefault();
-    console.log("저장");
+      console.log("저장");
+    // 2/
   };
   return (
     <>
