@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 
@@ -48,19 +48,36 @@ const ButtonContainer = styled.div`
 `;
 
 const CommentForm = () => {
+  const [enteredName, setEnteredName] = useState("");
+  const [enteredComment, setEnteredComment] = useState("");
+  //   const [createComment, setCreateComment] = useState("");
+
+  // handler
+  const nameChangeHandler = (e) => {
+    setEnteredName(e.target.value);
+  };
+  const commentChangeHandler = (e) => {
+    setEnteredComment(e.target.value);
+  };
+
   // 댓글 저장
-  const saveCommentHandler = (event) => {
-    event.preventDefault();
+  const saveCommentHandler = (e) => {
+    //   e.preventDefault();
     console.log("저장");
   };
   return (
     <>
       <CommentsForm onSubmit={saveCommentHandler}>
-        <InputNameStyled placeholder="닉네임"></InputNameStyled>
-        <InputCommentStyled placeholder="내용을 입력해주세요."></InputCommentStyled>
-        <ButtonContainer>
-          <Button type="submit">저장</Button>
-        </ButtonContainer>
+        <InputNameStyled
+          placeholder="닉네임"
+          onChange={nameChangeHandler}
+        ></InputNameStyled>
+        <InputCommentStyled
+          placeholder="내용을 입력해주세요."
+          onChange={commentChangeHandler}
+        ></InputCommentStyled>
+        <ButtonContainer></ButtonContainer>
+        <Button type="submit">저장</Button>
       </CommentsForm>
     </>
   );

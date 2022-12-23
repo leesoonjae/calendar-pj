@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CommentForm from '../Comments/CommentForm';
+import CommentForm from "../Comments/CommentForm";
 import CommentsList from "../Comments/CommentsList";
 import { Line } from "../UI/Line";
 
@@ -43,33 +43,31 @@ const TodoDescritionStyled = styled.div`
 export const CalenderForm = (props) => {
   //  submit 함수
 
-  const submitHandler = (e) => {
-    // 유효성 검사
-  };
+  // const submitHandler = (e) => {
+  //   // 유효성 검사
+  // };
 
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <TodoTitleContainer>
-          <TodoTitleStyled
-            placeholder="제목 없음"
-            contentEditable={true}
-            spellcheck="true"
-          >
-            제목 없음{" "}
-          </TodoTitleStyled>
-          <Line px="10px" />
-          <TodoDescritionStyled contentEditable={true} spellcheck="true">
-            내용 수정 해봐
-          </TodoDescritionStyled>
-          <Line px="32px" />
-          <CommentsList />
-          <CommentForm/>
-          <Line px="0px" />
-        </TodoTitleContainer>
+      <TodoTitleContainer>
+        <TodoTitleStyled
+          placeholder="제목 없음"
+          contentEditable={true}
+          spellcheck="true"
+        >
+          제목 없음{" "}
+        </TodoTitleStyled>
+        <Line px="10px" />
+        <TodoDescritionStyled contentEditable={true} spellcheck="true">
+          내용 수정 해봐
+        </TodoDescritionStyled>
+        <Line px="32px" />
+        <CommentsList />
+        <CommentForm />
+        <Line px="0px" />
+      </TodoTitleContainer>
 
-        <div></div>
-      </form>
+      <div></div>
     </>
   );
 };
