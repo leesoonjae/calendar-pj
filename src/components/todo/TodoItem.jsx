@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
@@ -8,12 +8,20 @@ import { v4 as uuidv4 } from "uuid";
 
 const TodoItem = () => {
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.calendar);
+  const todo = useSelector((state) => state.posts);
+
   // console.log(state);
 
   const [todoTitleValue, setTodoTitleValue] = useState("");
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
+
+  const newTodo = {
+    id: uuidv4(),
+    title: todoTitleValue,
+    date: todoDateValue,
+    desc: todoContentValue,
+  };
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -26,16 +34,27 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-  const newTodo = {
-    id: uuidv4(),
-    title: todoTitleValue,
-    date: todoDateValue,
-    desc: todoContentValue,
-  };
-
+  //추가 버튼을 클릭시
   const handleOnclickSaveButton = () => {
     dispatch(__addPosts(newTodo));
   };
+
+  useEffect(() => {
+    // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
+    // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
+    localStorage.setItem("todo", JSON.stringify(newTodo));
+  }, [newTodo]);
+
+  useEffect(() => {
+    return () => {
+      // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
+      const todo = localStorage.getItem("todo");
+      console.log(JSON.parse(todo));
+      dispatch(__addPosts(JSON.parse(todo)));
+      // 위에서 로컬스토리지에 저장한 todo를 삭제
+      localStorage.removeItem("todo");
+    };
+  }, []);
 
   return (
     <>

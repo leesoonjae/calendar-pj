@@ -19,7 +19,7 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 add
@@ -39,7 +39,7 @@ export const __addPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 const calendarSlice = createSlice({
