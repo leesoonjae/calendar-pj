@@ -1,22 +1,67 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
+import { useState } from "react";
+import { Button } from "../UI/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { __addPosts } from "../../redux/modules/calendarSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const TodoItem = () => {
+  const dispatch = useDispatch();
+  const todo = useSelector((state) => state.calendar);
+  // console.log(state);
+
+  const [todoTitleValue, setTodoTitleValue] = useState("");
+  const [todoDateValue, setTodoDateValue] = useState("");
+  const [todoContentValue, setTodoContentValue] = useState("");
+
+  const handleTitleChange = (event) => {
+    setTodoTitleValue(event.target.value);
+  };
+
+  const handleDateChange = (event) => {
+    setTodoDateValue(event.target.value);
+  };
+  const handleContentChange = (event) => {
+    setTodoContentValue(event.target.value);
+  };
+
+  const newTodo = {
+    id: uuidv4(),
+    title: todoTitleValue,
+    date: todoDateValue,
+    desc: todoContentValue,
+  };
+
+  const handleOnclickSaveButton = () => {
+    dispatch(__addPosts(newTodo));
+  };
+
   return (
     <>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
         contentEditable={true}
         spellcheck="true"
+        onChange={handleTitleChange}
+        value={todoTitleValue}
+        type="text"
       />
-      <TodoDatePicker type="date" />
+      <TodoDatePicker
+        type="date"
+        value={todoDateValue}
+        onChange={handleDateChange}
+      />
       <Line px="10px" />
       <TodoDescritionStyled
         contentEditable={true}
         spellcheck="true"
         type="text"
-        placeholder="내용"
+        placeholder="내용을 입력해주세요"
+        value={todoContentValue}
+        onChange={handleContentChange}
       ></TodoDescritionStyled>
+      <Button onClick={handleOnclickSaveButton}>추가</Button>
     </>
   );
 };
