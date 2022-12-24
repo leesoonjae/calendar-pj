@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { Button } from "../UI/Button";
 
 const TodoItem = () => {
   return (
@@ -85,8 +84,5 @@ const TodoDescritionStyled = styled.textarea`
     outline: none;
   }
 `;
-
-// 브랜치 새로 만들었지롱
-// 커밋 호호호
 
 export default TodoItem;
