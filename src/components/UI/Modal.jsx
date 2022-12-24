@@ -29,7 +29,7 @@ const ModalStyled = styled.div`
   animation: slide-down 300ms ease-out forwards;
 `;
 
-const Backdrop = (props) => {
+export const Backdrop = (props) => {
   return (
     <>
       <BackdropStyled onClick={props.onClick}></BackdropStyled>

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import todo from "../modules/todoSlice";
+import calendar from "../modules/calendarSlice";
 
 const store = configureStore({
-  reducer: { calendar: calendar },
+  reducer: { calendar },
 });
 
 export default store;
