@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
@@ -16,12 +17,14 @@ const CalendarContainer = styled.div`
 `;
 
 export const Calendar = () => {
-  const [showModal, setShowModal] = useState(false);
+  // 이벤트 데이터
+  const events = useSelector((state) => state.calendar);
 
+  // 모달
+  const [showModal, setShowModal] = useState(false);
   const showModalHandler = () => {
     setShowModal(true);
   };
-
   const hideModalHandler = () => {
     setShowModal(false);
   };
@@ -33,8 +36,17 @@ export const Calendar = () => {
       )}
       <CalendarContainer>
         <Button onClick={showModalHandler}>상세페이지 임시</Button>
-        <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" />
+        <FullCalendar
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          events={events}
+          eventClick={showModalHandler}
+          editable={true}
+          droppable={true}
+        />
       </CalendarContainer>
     </>
   );
 };
+
+// 필터링 리듀서 생성
