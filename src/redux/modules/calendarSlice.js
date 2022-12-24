@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
 // 초기 상태 값(initialState)
 const initialState = [
@@ -85,16 +86,31 @@ const calendarSlice = createSlice({
     deleteComment: (state, action) => {
       return state.filter((item) => item.id !== action.payload);
     },
+    readEvent: () => {
+      return initialState;
+    },
     filterEvent: (state, action) => {
-      return state.filter((item) => {
+      const result = state.filter((item) => {
         if (item.userId === action.payload) {
           return item;
         }
       });
+      // return [...state, result];
+      return result;
     },
   },
 });
 
-export const { addPost, deletePost, addComment, deleteComment, filterEvent } =
-  calendarSlice.actions;
+export const {
+  addPost,
+  deletePost,
+  addComment,
+  deleteComment,
+  readEvent,
+  filterEvent,
+} = calendarSlice.actions;
 export default calendarSlice.reducer;
+
+const Choice = styled.div`
+  background: red;
+`;

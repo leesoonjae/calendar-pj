@@ -1,20 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { filterEvent } from "../../redux/modules/calendarSlice";
+import { useDispatch } from "react-redux";
+import { readEvent, filterEvent } from "../../redux/modules/calendarSlice";
 
 const Footer = () => {
-  const user = useSelector((state) => state.calendar);
+  const user = ["변시윤", "김재현", "정하나", "이순재"];
   const dispatch = useDispatch();
 
-  const filterHandler = (e) => {
-    // const result = user.filter((item) => {
-    //   if (item.userId === e.target.innerText) {
-    //     return item;
-    //   }
-    // });
-    // console.log(result);
+  // 팀원별 투두리스트 필터링
+  const showFilter = (e) => {
     dispatch(filterEvent(e.target.innerText));
+  };
+  const hideFilter = () => {
+    dispatch(readEvent());
   };
 
   return (
@@ -22,8 +20,12 @@ const Footer = () => {
       <FooterInner>
         {user.map((item, i) => {
           return (
-            <Name key={i} onClick={(e) => filterHandler(e)}>
-              {item.userId}
+            <Name
+              key={i}
+              onMouseOver={(e) => showFilter(e)}
+              onMouseLeave={() => hideFilter()}
+            >
+              {item}
             </Name>
           );
         })}

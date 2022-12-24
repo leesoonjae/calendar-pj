@@ -1,0 +1,79 @@
+/* today 버튼 */
+.fc .fc-button-primary,
+.fc .fc-button-primary:disabled {
+  color: initial;
+  background-color: white;
+  border: none;
+  font-weight: bold;
+}
+.fc .fc-button-primary:hover {
+  opacity: 0.5;
+  color: initial;
+  background-color: white;
+}
+
+/* 이전달/다음달 버튼 */
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child),
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  color: initial;
+  background-color: white;
+  border: none;
+}
+
+/* .fc-daygrid,
+.fc-daygrid-day-frame {
+  border: 0.11rem solid;
+  margin: -0.08rem;
+} */
+
+/* 이벤트 */
+.fc-daygrid-day-events {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 3%;
+}
+.fc-event {
+  width: 93%;
+  margin-bottom: 0.4rem;
+  padding: 0.3rem 0.3rem 0.14rem 0.3rem;
+  box-shadow: 0.1rem 0.1rem 0.2rem #dbdbdb;
+  border: #f6f6f6;
+  border-radius: 0.3rem;
+  background-color: #f6f6f6;
+  /* background: yellow;
+  white-space: no-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+.fc-event:hover {
+  background-color: #e9e7e7;
+}
+
+/* 날짜칸 */
+.fc-day {
+  cursor: pointer;
+}
+.fc-day:hover {
+  background-color: rgb(251, 250, 250);
+}
+.fc-day a {
+  margin: 0.5rem 0.2rem;
+  font-weight: bold;
+}
+
+/* 오늘 */
+:root {
+  --fc-today-bg-color: rgb(252, 252, 245);
+}
+
+.fc-day-today {
+  background-color: var(--fc-today-bg-color);
+}
+
+/* 토요일, 일요일 */
+.fc-day-sun a,
+.fc-day-sat a {
+  color: red;
+  text-decoration: none;
+}
