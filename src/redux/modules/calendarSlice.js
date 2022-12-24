@@ -11,7 +11,7 @@ const initialState = [
     date: "2022-12-22",
     comments: [
       {
-        id: "uuidv4",
+        id: uuidv4(),
         name: "정하나",
         password: "2341",
         comment: "ㅎㅇㅌ",
@@ -27,7 +27,7 @@ const initialState = [
     date: "2022-12-22",
     comments: [
       {
-        id: "uuidv4",
+        id: uuidv4(),
         name: "시윤",
         password: "1234",
         comment: "화이팅",
@@ -43,7 +43,7 @@ const initialState = [
     date: "2022-12-22",
     comments: [
       {
-        id: "uuidv4",
+        id: uuidv4(),
         name: "하나",
         password: "1542",
         comment: "ㅎㅇㅌ",
@@ -59,7 +59,7 @@ const initialState = [
     date: "2022-12-22",
     comments: [
       {
-        id: "uuidv4",
+        id: uuidv4(),
         name: "시윤",
         password: "4561",
         comment: "ㅎㅇㅌ",
