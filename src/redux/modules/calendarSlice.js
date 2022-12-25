@@ -7,7 +7,7 @@ const initialState = [
   {
     userId: "김재현",
     Id: "1203004",
-    title: "리액트공부",
+    title: "리액트 공부와 팀 프로젝트",
     desc: "13~19시까지 리액트 effect hook 학습",
     date: "2022-12-01",
     comments: [

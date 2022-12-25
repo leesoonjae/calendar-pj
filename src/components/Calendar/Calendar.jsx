@@ -17,7 +17,6 @@ export const Calendar = () => {
   const renderEventContent = (eventInfo) => {
     return (
       <>
-        {/* 삼항연산자로 팀원이벤트/전체이벤트 필터링 */}
         <Title>{eventInfo.event.title} </Title>
         <Comment>
           <FaRegComment size="11" />
@@ -59,6 +58,8 @@ export const Calendar = () => {
   );
 };
 
+//
+
 export default Calendar;
 
 const CalendarContainer = styled.div`
@@ -71,10 +72,16 @@ const CalendarContainer = styled.div`
 `;
 
 const Title = styled.span`
+  display: block;
+  width: 78%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: normal;
   font-weight: bold;
 `;
 
 const Comment = styled.span`
   font-weight: normal;
   float: right;
+  margin-top: -1rem;
 `;

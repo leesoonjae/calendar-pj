@@ -1246,6 +1246,11 @@
   resolved "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.0.1.tgz"
   integrity sha512-QKbZZhJ2LCvHjc0E7bbos5kGRZJ024i0JliTr2H+0zgaSORHp4kzbk+w+XJpRc2v/DbGKMrlFSDVLKNE99BLSQ==
 
+"@fullcalendar/google-calendar@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/google-calendar/-/google-calendar-6.0.1.tgz#cd55195839d5c62b50b349916631f79c4e3916e5"
+  integrity sha512-UujZ9uP7J2ekRal+AxYvXiJULAdICk5d2QvGs+59WJyk+5HwaXS6NFnhBErg4ms5iarzTKILMf/0M+AZXfZFdA==
+
 "@fullcalendar/interaction@~6.0.1":
   version "6.0.1"
   resolved "https://registry.npmjs.org/@fullcalendar/interaction/-/interaction-6.0.1.tgz"

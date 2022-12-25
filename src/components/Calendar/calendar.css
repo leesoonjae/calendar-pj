@@ -20,12 +20,9 @@
   border: none;
 }
 
-/* .fc-daygrid,
-.fc-daygrid-day-frame {
-  border: 0.11rem solid;
-  margin: -0.08rem;
-} */
-
+.fc .fc-scrollgrid-liquid {
+  height: 107%;
+}
 /* 이벤트 */
 .fc-daygrid-day-events {
   display: flex;
@@ -41,10 +38,6 @@
   border: #f6f6f6;
   border-radius: 0.3rem;
   background-color: #f6f6f6;
-  /* background: yellow;
-  white-space: no-wrap;
-  overflow: hidden;
-  text-overflow: ellipsis; */
 }
 .fc-event:hover {
   background-color: #e9e7e7;
