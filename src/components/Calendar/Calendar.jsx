@@ -42,7 +42,9 @@ export const Calendar = () => {
         <Modal onClick={hideModalHandler}>{<CalenderForm />}</Modal>
       )}
       <CalendarContainer>
-        <Button onClick={showModalHandler}>이벤트 추가</Button>
+        <MainButtonStyled>
+          <Button onClick={showModalHandler}>New</Button>
+        </MainButtonStyled>
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -82,4 +84,10 @@ const Comment = styled.span`
   font-weight: normal;
   float: right;
   margin-top: -1rem;
+`;
+
+const MainButtonStyled = styled.div`
+  position: absolute;
+  top: 16.3%;
+  right: 19%;
 `;

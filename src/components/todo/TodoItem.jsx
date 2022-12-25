@@ -5,6 +5,7 @@ import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
 import { v4 as uuidv4 } from "uuid";
+import { FaTrashAlt } from "react-icons/fa";
 
 const TodoItem = () => {
   const dispatch = useDispatch();
@@ -16,13 +17,11 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
-  const [todoUserIdValue, setTodoUserIdValue] = useState("");
 
   const newTodo = {
     id: uuidv4(),
     userId: todoUserIdValue,
     title: todoTitleValue,
-    userId: todoUserIdValue,
     date: todoDateValue,
     desc: todoContentValue,
   };
@@ -33,10 +32,6 @@ const TodoItem = () => {
   // title input창에 있는 현재 value를 받아오는 이벤트
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
-  };
-
-  const handleUserIdChange = (event) => {
-    setTodoUserIdValue(event.target.value);
   };
 
   const handleDateChange = (event) => {
@@ -77,7 +72,9 @@ const TodoItem = () => {
   return (
     <>
       <TodoPostDeleteButtonContainer>
-        <Button onClick={handlePostDeleteButton}>삭제</Button>
+        <Button onClick={handlePostDeleteButton}>
+          <FaTrashAlt />
+        </Button>
       </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
@@ -85,14 +82,6 @@ const TodoItem = () => {
         spellcheck="true"
         onChange={handleTitleChange}
         value={todoTitleValue}
-        type="text"
-      />
-      <TodoUserNameStyled
-        placeholder="사용자"
-        contentEditable={true}
-        spellcheck="true"
-        onChange={handleUserIdChange}
-        value={todoUserIdValue}
         type="text"
       />
 
@@ -162,24 +151,6 @@ const TodoTitleStyled = styled.input`
   border: none;
   font-size: 40px;
   font-weight: 700;
-  &::placeholder {
-    color: rgba(75, 75, 75, 0.214);
-  }
-  &:focus {
-    outline: none;
-  }
-  [contenteditable]:empty:after,
-  .forcePlaceholder:after {
-    content: attr(placeholder);
-  }
-`;
-
-const TodoUserNameStyled = styled.input`
-  max-width: 100%;
-  width: 100%;
-  border: none;
-  font-size: 20px;
-  font-weight: 400;
   &::placeholder {
     color: rgba(75, 75, 75, 0.214);
   }
