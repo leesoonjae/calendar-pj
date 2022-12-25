@@ -13,7 +13,7 @@ import "./calendar.css";
 
 export const Calendar = () => {
   // 이벤트 데이터
-  const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  const { posts } = useSelector((state) => state.calendar);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,7 +25,11 @@ export const Calendar = () => {
       <>
         <Title>{eventInfo.event.title} </Title>
         <Comment>
-          <FaRegComment size="11" />
+          {eventInfo.event._def.extendedProps.comment > 0 ? (
+            <FaRegComment size="11" />
+          ) : (
+            ""
+          )}
           &nbsp;
           {eventInfo.event._def.extendedProps.comment}
         </Comment>

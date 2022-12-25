@@ -12,19 +12,15 @@ const initialState = {
 export const __filteredEvents = createAsyncThunk(
   "filteredEvents",
   async (payload, ThunkAPI) => {
-    try {
-      const response = await axios.get("http://localhost:3001/posts");
-      const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
-        (item) => {
-          if (item.userId === payload) {
-            return item;
-          }
+    const response = await axios.get("http://localhost:3001/posts");
+    const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
+      (item) => {
+        if (item.userId === payload) {
+          return item;
         }
-      );
-      return result;
-    } catch (error) {
-      return ThunkAPI.rejectWithValue(error);
-    }
+      }
+    );
+    return result;
   }
 );
 
@@ -38,7 +34,7 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 add
@@ -51,7 +47,6 @@ export const __addPosts = createAsyncThunk(
         title: newTodo.title,
         date: newTodo.date,
         desc: newTodo.desc,
-        userId: newTodo.userId,
       });
       const response = await axios.get("http://localhost:3001/posts");
 
@@ -59,7 +54,7 @@ export const __addPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 delete 수정중
@@ -79,7 +74,7 @@ export const __deletePosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 const calendarSlice = createSlice({
@@ -95,16 +90,9 @@ const calendarSlice = createSlice({
   },
   extraReducers: {
     // 캘린더에서 이벤트 조회
-    [__filteredEvents.pending]: (state) => {
-      state.isLanding = true;
-    },
     [__filteredEvents.fulfilled]: (state, action) => {
       state.isLanding = false;
       state.posts = action.payload;
-    },
-    [__filteredEvents.rejected]: (state, action) => {
-      state.isLanding = false;
-      state.error = action.payload;
     },
     // 포스트를 조회할 때
     [__getPosts.pending]: (state) => {
