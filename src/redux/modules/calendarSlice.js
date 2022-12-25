@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // // 초기 상태 값(initialState)
 const initialState = {
-  posts: [{ id: uuidv4(), title: "", date: "", desc: "" }],
+  posts: [{ userId: "", id: uuidv4(), title: "", date: "", desc: "" }],
   idLoading: false,
   error: null,
 };
@@ -19,7 +19,7 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 // 포스트 add
@@ -32,6 +32,7 @@ export const __addPosts = createAsyncThunk(
         title: newTodo.title,
         date: newTodo.date,
         desc: newTodo.desc,
+        userId: newTodo.userId,
       });
       const response = await axios.get("http://localhost:3001/posts");
 
@@ -39,7 +40,7 @@ export const __addPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 // 포스트 delete 수정중
@@ -59,16 +60,16 @@ export const __deletePosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 const calendarSlice = createSlice({
   name: "calendar",
   initialState,
   reducers: {
-    //   addPost: (state, action) => {
-    //     return [...state, action.payload];
-    //   },
+    // addPost: (state, action) => {
+    //   return [...state, action.payload];
+    // },
     //   deletePost: (state, action) => {
     //     return state.filter((item) => item.id !== action.payload);
     //   },
