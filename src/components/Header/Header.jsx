@@ -1,8 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { CalenderForm } from "../Calendar/CalenderForm";
-import { Button } from "../UI/Button";
-import { Modal } from "../UI/Modal";
 
 const HeaderStyled = styled.div`
   position: fixed;
@@ -16,12 +13,9 @@ const HeaderStyled = styled.div`
 `;
 
 const Header = (props) => {
-  
   return (
     <HeaderStyled>
       <h1>위랜더</h1>
-      
-      
     </HeaderStyled>
   );
 };

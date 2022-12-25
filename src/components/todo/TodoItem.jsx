@@ -16,11 +16,15 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
 
-  // 제목이나 내용 입력을 안 했거나 제목을 10글자 이상 작성하지 않았을 때 쓰는 hook(useRef)
-  // const todoTitleRef = useRef(null);
-  // const todoContentRef = useRef(null);
 
-  // title input창에 있는 현재 value를 받아오는 이벤트
+  const newTodo = {
+    id: uuidv4(),
+    title: todoTitleValue,
+    date: todoDateValue,
+    desc: todoContentValue,
+  };
+
+
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
   };
@@ -32,46 +36,10 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-  const newTodo = {
-    id: uuidv4(),
-    title: todoTitleValue,
-    date: todoDateValue,
-    desc: todoContentValue,
-  };
-
-  // password value값 받아서 보내기(input창에)
-
-  // const handleOnClickSaveButton = () => {
-  //   dispatch(__addPosts(newTodo));
-
-  //   if (todoTitleValue === "" && todoContentValue === "") {
-  //     alert("제목과 내용을 입력해주세요");
-  //     return todoTitleRef.current.focus();
-  //   }
-
-  //   if (todoTitleValue.length < 10) {
-  //     alert("제목을 10글자 이상 작성해주세요");
-  //     return todoTitleRef.current.focus();
-  //   }
-
-  //   if (todoTitleValue === "") {
-  //     alert("제목을 입력해주세요");
-  //     return todoTitleRef.current.focus();
-  //   }
-
-  //   if (todoContentValue === "") {
-  //     alert("내용을 입력해주세요");
-  //     return todoContentRef.current.focus();
-  //   }
-
-  //   if (todoDateValue === "") {
-  //     alert("날짜를 선택해주세요");
-  //     return;
-  //   }
-  // };
 
   const handlePostDeleteButton = () => {
     // dispatch(__deletePosts());
+
   };
 
   useEffect(() => {
@@ -90,6 +58,9 @@ const TodoItem = () => {
       localStorage.removeItem("todo");
     };
   }, []);
+
+  // 커밋을 하자
+
 
   return (
     <>
@@ -185,6 +156,7 @@ const TodoDescritionStyled = styled.textarea`
     outline: none;
   }
 `;
+
 
 const TodoPostDeleteButtonContainer = styled.div`
   display: flex;
