@@ -15,10 +15,13 @@ const TodoItem = () => {
   const [todoTitleValue, setTodoTitleValue] = useState("");
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
+  const [todoUserIdValue, setTodoUserIdValue] = useState("");
+
 
   const newTodo = {
     id: uuidv4(),
     title: todoTitleValue,
+    userId: todoUserIdValue,
     date: todoDateValue,
     desc: todoContentValue,
   };
@@ -34,9 +37,16 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
+
+  const handleUserIdChange = (event) => {
+    setTodoUserIdValue(event.target.value);
+  };
+
   const handlePostDeleteButton = () => {
     // dispatch(__deletePosts());
   };
+
+  // password value값 받아서 보내기(input창에)
 
   useEffect(() => {
     // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
@@ -53,7 +63,6 @@ const TodoItem = () => {
       localStorage.removeItem("todo");
     };
   }, []);
-
   // 커밋을 하자
 
   return (
@@ -69,6 +78,20 @@ const TodoItem = () => {
         value={todoTitleValue}
         type="text"
       />
+
+      <TodoUserNameStyled
+        placeholder="사용자"
+        contentEditable={true}
+        spellcheck="true"
+        onChange={handleUserIdChange}
+        value={todoUserIdValue}
+      >
+        <option value="이순재">이순재</option>
+        <option value="정하나">정하나</option>
+        <option value="변시윤">변시윤</option>
+        <option value="김재현">김재현</option>
+      </TodoUserNameStyled>
+
       <TodoDatePicker
         type="date"
         value={todoDateValue}
@@ -83,7 +106,6 @@ const TodoItem = () => {
         value={todoContentValue}
         onChange={handleContentChange}
       ></TodoDescritionStyled>
-      {/* <Button onClick={handleOnClickSaveButton}>추가</Button> */}
     </>
   );
 };
@@ -101,16 +123,19 @@ const TodoDatePicker = styled.input`
     outline: none;
   }
   &::-webkit-calendar-picker-indicator {
-    position: absolute;
+    position: relative;
     top: 20%;
-    right: auto;
-    bottom: auto;
+    right: 70%;
     width: 30%;
     height: 2rem;
     color: rgb(104, 104, 104);
     cursor: pointer;
     background: transparent;
   }
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoTitleStyled = styled.input`
@@ -133,11 +158,17 @@ const TodoTitleStyled = styled.input`
   .forcePlaceholder:after {
     content: attr(placeholder);
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
+// 폰트추가
 
 const TodoDescritionStyled = styled.textarea`
   width: 100%;
-  height: 20rem;
+  height: 15rem;
   margin-top: 3rem;
   font-size: 28px;
   font-weight: 500;
@@ -149,11 +180,43 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
+
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoPostDeleteButtonContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
+
+const TodoUserNameStyled = styled.select`
+  max-width: 100%;
+  width: 30%;
+  border: none;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  color: rgb(55, 53, 47);
+  background-color: rgba(75, 75, 75, 0.214);
+  border-radius: 0.3rem;
+
+  &:focus {
+    outline: none;
+  }
+  [contenteditable]:empty:after,
+  .forcePlaceholder:after {
+    content: attr(placeholder);
+  }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 export default TodoItem;

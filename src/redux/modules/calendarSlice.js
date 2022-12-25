@@ -38,7 +38,7 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 // 포스트 add
@@ -51,6 +51,7 @@ export const __addPosts = createAsyncThunk(
         title: newTodo.title,
         date: newTodo.date,
         desc: newTodo.desc,
+        userId: newTodo.userId,
       });
       const response = await axios.get("http://localhost:3001/posts");
 
@@ -58,7 +59,7 @@ export const __addPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 // 포스트 delete 수정중
@@ -78,7 +79,7 @@ export const __deletePosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 const calendarSlice = createSlice({

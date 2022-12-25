@@ -10,6 +10,7 @@ const HeaderStyled = styled.div`
   height: 8rem;
   text-align: center;
   border-bottom: 1px solid #333;
+  z-index: 5;
 `;
 
 const Header = (props) => {
