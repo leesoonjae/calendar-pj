@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
@@ -16,6 +16,11 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
 
+  // 제목이나 내용 입력을 안 했거나 제목을 10글자 이상 작성하지 않았을 때 쓰는 hook(useRef)
+  // const todoTitleRef = useRef(null);
+  // const todoContentRef = useRef(null);
+
+  // title input창에 있는 현재 value를 받아오는 이벤트
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
   };
@@ -36,8 +41,37 @@ const TodoItem = () => {
 
   // password value값 받아서 보내기(input창에)
 
-  const handleOnclickSaveButton = () => {
-    dispatch(__addPosts(newTodo));
+  // const handleOnClickSaveButton = () => {
+  //   dispatch(__addPosts(newTodo));
+
+  //   if (todoTitleValue === "" && todoContentValue === "") {
+  //     alert("제목과 내용을 입력해주세요");
+  //     return todoTitleRef.current.focus();
+  //   }
+
+  //   if (todoTitleValue.length < 10) {
+  //     alert("제목을 10글자 이상 작성해주세요");
+  //     return todoTitleRef.current.focus();
+  //   }
+
+  //   if (todoTitleValue === "") {
+  //     alert("제목을 입력해주세요");
+  //     return todoTitleRef.current.focus();
+  //   }
+
+  //   if (todoContentValue === "") {
+  //     alert("내용을 입력해주세요");
+  //     return todoContentRef.current.focus();
+  //   }
+
+  //   if (todoDateValue === "") {
+  //     alert("날짜를 선택해주세요");
+  //     return;
+  //   }
+  // };
+
+  const handlePostDeleteButton = () => {
+    // dispatch(__deletePosts());
   };
 
   useEffect(() => {
@@ -59,6 +93,9 @@ const TodoItem = () => {
 
   return (
     <>
+      <TodoPostDeleteButtonContainer>
+        <Button onClick={handlePostDeleteButton}>삭제</Button>
+      </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
         contentEditable={true}
@@ -81,7 +118,7 @@ const TodoItem = () => {
         value={todoContentValue}
         onChange={handleContentChange}
       ></TodoDescritionStyled>
-      <Button onClick={handleOnclickSaveButton}>추가</Button>
+      {/* <Button onClick={handleOnClickSaveButton}>추가</Button> */}
     </>
   );
 };
@@ -147,6 +184,11 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
+`;
+
+const TodoPostDeleteButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
 
 export default TodoItem;
