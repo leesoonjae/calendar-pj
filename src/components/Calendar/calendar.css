@@ -20,27 +20,9 @@
   border: none;
 }
 
+/* 달력 그리드 */
 .fc .fc-scrollgrid-liquid {
   height: 107%;
-}
-/* 이벤트 */
-.fc-daygrid-day-events {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 3%;
-}
-.fc-event {
-  width: 93%;
-  margin-bottom: 0.4rem;
-  padding: 0.3rem 0.3rem 0.14rem 0.3rem;
-  box-shadow: 0.1rem 0.1rem 0.2rem #dbdbdb;
-  border: #f6f6f6;
-  border-radius: 0.3rem;
-  background-color: #f6f6f6;
-}
-.fc-event:hover {
-  background-color: #e9e7e7;
 }
 
 /* 날짜칸 */
@@ -69,4 +51,24 @@
 .fc-day-sat a {
   color: red;
   text-decoration: none;
+}
+
+/* 이벤트 */
+.fc-daygrid-day-events {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 3%;
+}
+.fc-event {
+  width: 93%;
+  margin-bottom: 0.4rem;
+  padding: 0.3rem 0.3rem 0.14rem 0.3rem;
+  box-shadow: 0.1rem 0.1rem 0.2rem #dbdbdb;
+  border: #f6f6f6;
+  border-radius: 0.3rem;
+  background-color: #f6f6f6;
+}
+.fc-event:hover {
+  background-color: #e9e7e7;
 }

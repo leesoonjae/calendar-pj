@@ -95,7 +95,7 @@ const calendarSlice = createSlice({
           return item;
         }
       });
-      // return [...state, result];
+      // return [...state, result]; // 전체 데이터 + 필터링 데이터
       return result;
     },
   },
@@ -110,7 +110,3 @@ export const {
   filterEvent,
 } = calendarSlice.actions;
 export default calendarSlice.reducer;
-
-const Choice = styled.div`
-  background: red;
-`;
