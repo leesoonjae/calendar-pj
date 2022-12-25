@@ -43,8 +43,28 @@ export const __addPosts = createAsyncThunk(
   }
 );
 
+// 포스트 delete 수정중
+export const __deletePosts = createAsyncThunk(
+  "deletePosts",
+  async (newTodo, ThunkAPI) => {
+    try {
+      await axios.delete("http://localhost:3001/posts", {
+        id: newTodo.id,
+        title: newTodo.title,
+        date: newTodo.date,
+        desc: newTodo.desc,
+      });
+      const response = await axios.get("http://localhost:3001/posts");
+
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
 const calendarSlice = createSlice({
-  name: "posts",
+  name: "calendar",
   initialState,
   reducers: {
     //   addPost: (state, action) => {
