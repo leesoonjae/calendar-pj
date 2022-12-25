@@ -22,6 +22,8 @@ export const __getPosts = createAsyncThunk(
   },
 );
 
+/// 다시 커밋
+
 // 포스트 add
 export const __addPosts = createAsyncThunk(
   "addPosts",
