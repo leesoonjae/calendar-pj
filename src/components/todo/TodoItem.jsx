@@ -110,7 +110,6 @@ const TodoItem = () => {
         value={todoContentValue}
         onChange={handleContentChange}
       ></TodoDescritionStyled>
-      {/* <Button onClick={handleOnClickSaveButton}>추가</Button> */}
     </>
   );
 };
@@ -137,6 +136,10 @@ const TodoDatePicker = styled.input`
     cursor: pointer;
     background: transparent;
   }
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoTitleStyled = styled.input`
@@ -159,11 +162,16 @@ const TodoTitleStyled = styled.input`
   .forcePlaceholder:after {
     content: attr(placeholder);
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoDescritionStyled = styled.textarea`
   width: 100%;
-  height: 20rem;
+  height: 15rem;
   margin-top: 3rem;
   font-size: 28px;
   font-weight: 500;
@@ -175,6 +183,11 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoPostDeleteButtonContainer = styled.div`
@@ -201,6 +214,11 @@ const TodoUserNameStyled = styled.select`
   .forcePlaceholder:after {
     content: attr(placeholder);
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 export default TodoItem;
