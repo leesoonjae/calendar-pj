@@ -17,6 +17,7 @@ const TodoItem = () => {
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
 
+
   const newTodo = {
     id: uuidv4(),
     title: todoTitleValue,
@@ -25,11 +26,6 @@ const TodoItem = () => {
     desc: todoContentValue,
   };
 
-  // 제목이나 내용 입력을 안 했거나 제목을 10글자 이상 작성하지 않았을 때 쓰는 hook(useRef)
-  // const todoTitleRef = useRef(null);
-  // const todoContentRef = useRef(null);
-
-  // title input창에 있는 현재 value를 받아오는 이벤트
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
   };
@@ -40,6 +36,7 @@ const TodoItem = () => {
   const handleContentChange = (event) => {
     setTodoContentValue(event.target.value);
   };
+
 
   const handleUserIdChange = (event) => {
     setTodoUserIdValue(event.target.value);
@@ -61,7 +58,6 @@ const TodoItem = () => {
     return () => {
       // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
       const todo = localStorage.getItem("todo");
-      console.log(JSON.parse(todo));
       dispatch(__addPosts(JSON.parse(todo)));
       // 위에서 로컬스토리지에 저장한 todo를 삭제
       localStorage.removeItem("todo");
@@ -184,6 +180,7 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
+
 
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
