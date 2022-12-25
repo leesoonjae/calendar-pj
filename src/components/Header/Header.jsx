@@ -10,12 +10,16 @@ const HeaderStyled = styled.div`
   height: 8rem;
   text-align: center;
   border-bottom: 1px solid #333;
+  z-index: 5;
+  h1 {
+    font-size: 50px;
+  }
 `;
 
 const Header = (props) => {
   return (
     <HeaderStyled>
-      <h1>위랜더</h1>
+      <h1>Welander</h1>
     </HeaderStyled>
   );
 };

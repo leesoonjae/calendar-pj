@@ -116,10 +116,9 @@ const TodoDatePicker = styled.input`
     outline: none;
   }
   &::-webkit-calendar-picker-indicator {
-    position: absolute;
+    position: relative;
     top: 20%;
-    right: auto;
-    bottom: auto;
+    right: 70%;
     width: 30%;
     height: 2rem;
     color: rgb(104, 104, 104);
