@@ -1,18 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { readEvent, filterEvent } from "../../redux/modules/calendarSlice";
+import {
+  __getPosts,
+  __filteredEvents,
+} from "../../redux/modules/calendarSlice";
 
 const Footer = () => {
   const user = ["변시윤", "김재현", "정하나", "이순재"];
   const dispatch = useDispatch();
 
-  // 팀원별 투두리스트 필터링
+  // 팀원별 이벤트 필터링
   const showFilter = (e) => {
-    dispatch(filterEvent(e.target.innerText));
+    dispatch(__filteredEvents(e.target.innerText));
   };
   const hideFilter = () => {
-    dispatch(readEvent());
+    dispatch(__getPosts());
   };
 
   return (

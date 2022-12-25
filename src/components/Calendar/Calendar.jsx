@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -8,11 +8,17 @@ import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
 import { CalenderForm } from "./CalenderForm";
 import { FaRegComment } from "react-icons/fa";
+import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
 
 export const Calendar = () => {
   // 이벤트 데이터
-  const events = useSelector((state) => state.calendar);
+  const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, [dispatch]);
 
   const renderEventContent = (eventInfo) => {
     return (
@@ -21,7 +27,7 @@ export const Calendar = () => {
         <Comment>
           <FaRegComment size="11" />
           &nbsp;
-          {eventInfo.event._def.extendedProps.comments.length}
+          {eventInfo.event._def.extendedProps.comment}
         </Comment>
       </>
     );
@@ -46,7 +52,7 @@ export const Calendar = () => {
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
-          events={events}
+          events={posts}
           eventContent={renderEventContent}
           eventClick={showModalHandler}
           dateClick={showModalHandler}
