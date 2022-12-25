@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // // 초기 상태 값(initialState)
 const initialState = {
-  posts: [{ id: uuidv4(), title: "", date: "", desc: "" }],
+  posts: [{ id: uuidv4(), userId: "", title: "", date: "", desc: "" }],
   idLoading: false,
   error: null,
 };
@@ -29,6 +29,7 @@ export const __addPosts = createAsyncThunk(
     try {
       await axios.post("http://localhost:3001/posts", {
         id: newTodo.id,
+        userId: newTodo.userId,
         title: newTodo.title,
         date: newTodo.date,
         desc: newTodo.desc,

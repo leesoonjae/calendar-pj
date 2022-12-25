@@ -15,9 +15,11 @@ const TodoItem = () => {
   const [todoTitleValue, setTodoTitleValue] = useState("");
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
+  const [todoUserIdValue, setTodoUserIdValue] = useState("");
 
   const newTodo = {
     id: uuidv4(),
+    userId: todoUserIdValue,
     title: todoTitleValue,
     date: todoDateValue,
     desc: todoContentValue,
@@ -25,6 +27,10 @@ const TodoItem = () => {
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
+  };
+
+  const handleUserIdChange = (event) => {
+    setTodoUserIdValue(event.target.value);
   };
 
   const handleDateChange = (event) => {
@@ -65,6 +71,14 @@ const TodoItem = () => {
         spellcheck="true"
         onChange={handleTitleChange}
         value={todoTitleValue}
+        type="text"
+      />
+      <TodoUserNameStyled
+        placeholder="사용자"
+        contentEditable={true}
+        spellcheck="true"
+        onChange={handleUserIdChange}
+        value={todoUserIdValue}
         type="text"
       />
       <TodoDatePicker
@@ -122,6 +136,24 @@ const TodoTitleStyled = styled.input`
   border: none;
   font-size: 40px;
   font-weight: 700;
+  &::placeholder {
+    color: rgba(75, 75, 75, 0.214);
+  }
+  &:focus {
+    outline: none;
+  }
+  [contenteditable]:empty:after,
+  .forcePlaceholder:after {
+    content: attr(placeholder);
+  }
+`;
+
+const TodoUserNameStyled = styled.input`
+  max-width: 100%;
+  width: 100%;
+  border: none;
+  font-size: 20px;
+  font-weight: 400;
   &::placeholder {
     color: rgba(75, 75, 75, 0.214);
   }
