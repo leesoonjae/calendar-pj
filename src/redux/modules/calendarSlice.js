@@ -43,7 +43,7 @@ export const __addPosts = createAsyncThunk(
 );
 
 const calendarSlice = createSlice({
-  name: "posts",
+  name: "calendar",
   initialState,
   reducers: {
     //   addPost: (state, action) => {
