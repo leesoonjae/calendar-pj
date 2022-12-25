@@ -1040,7 +1040,7 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-"@babel/runtime@^7.12.1", "@babel/runtime@^7.4.4":
+"@babel/runtime@^7.12.1":
   version "7.20.7"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.20.7.tgz#fcb41a5a70550e04a7b708037c7c32f7f356d8fd"
   integrity sha512-UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==
@@ -1245,11 +1245,6 @@
   version "6.0.1"
   resolved "https://registry.npmjs.org/@fullcalendar/daygrid/-/daygrid-6.0.1.tgz"
   integrity sha512-QKbZZhJ2LCvHjc0E7bbos5kGRZJ024i0JliTr2H+0zgaSORHp4kzbk+w+XJpRc2v/DbGKMrlFSDVLKNE99BLSQ==
-
-"@fullcalendar/google-calendar@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/google-calendar/-/google-calendar-6.0.1.tgz#cd55195839d5c62b50b349916631f79c4e3916e5"
-  integrity sha512-UujZ9uP7J2ekRal+AxYvXiJULAdICk5d2QvGs+59WJyk+5HwaXS6NFnhBErg4ms5iarzTKILMf/0M+AZXfZFdA==
 
 "@fullcalendar/interaction@~6.0.1":
   version "6.0.1"
@@ -1596,13 +1591,6 @@
   version "2.0.4"
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
-
-"@material-ui/icons@^4.11.3":
-  version "4.11.3"
-  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.11.3.tgz#b0693709f9b161ce9ccde276a770d968484ecff1"
-  integrity sha512-IKHlyx6LDh8n19vzwH5RtHIOHl9Tu90aAAxcbWME6kp4dmvODM3UvOHJeMIDzUbd4muuJKHmlNoBN+mDY4XkBA==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"

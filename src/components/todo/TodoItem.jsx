@@ -16,14 +16,12 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
 
-
   const newTodo = {
     id: uuidv4(),
     title: todoTitleValue,
     date: todoDateValue,
     desc: todoContentValue,
   };
-
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -36,10 +34,8 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-
   const handlePostDeleteButton = () => {
     // dispatch(__deletePosts());
-
   };
 
   useEffect(() => {
@@ -52,7 +48,6 @@ const TodoItem = () => {
     return () => {
       // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
       const todo = localStorage.getItem("todo");
-      console.log(JSON.parse(todo));
       dispatch(__addPosts(JSON.parse(todo)));
       // 위에서 로컬스토리지에 저장한 todo를 삭제
       localStorage.removeItem("todo");
@@ -60,7 +55,6 @@ const TodoItem = () => {
   }, []);
 
   // 커밋을 하자
-
 
   return (
     <>
@@ -156,7 +150,6 @@ const TodoDescritionStyled = styled.textarea`
     outline: none;
   }
 `;
-
 
 const TodoPostDeleteButtonContainer = styled.div`
   display: flex;
