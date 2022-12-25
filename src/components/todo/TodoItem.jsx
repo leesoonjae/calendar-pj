@@ -168,6 +168,7 @@ const TodoTitleStyled = styled.input`
     "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
 `;
+// 폰트추가
 
 const TodoDescritionStyled = styled.textarea`
   width: 100%;
