@@ -59,7 +59,7 @@ export const __deletePosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 const calendarSlice = createSlice({
@@ -104,9 +104,33 @@ const calendarSlice = createSlice({
       state.isLanding = false;
       state.error = action.payload;
     },
+    addComment: (state, action) => {
+      return [...state, action.payload];
+    },
+    deleteComment: (state, action) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
+    readEvent: () => {
+      return initialState;
+    },
+    filterEvent: (state, action) => {
+      const result = state.filter((item) => {
+        if (item.userId === action.payload) {
+          return item;
+        }
+      });
+      // return [...state, result]; // 전체 데이터 + 필터링 데이터
+      return result;
+    },
   },
 });
 
-export const { addPost, deletePost, addComment, deleteComment } =
-  calendarSlice.actions;
+export const {
+  addPost,
+  deletePost,
+  addComment,
+  deleteComment,
+  readEvent,
+  filterEvent,
+} = calendarSlice.actions;
 export default calendarSlice.reducer;
