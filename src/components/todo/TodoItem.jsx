@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
@@ -17,7 +17,6 @@ const TodoItem = () => {
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
 
-
   const newTodo = {
     id: uuidv4(),
     userId: todoUserIdValue,
@@ -25,7 +24,6 @@ const TodoItem = () => {
     date: todoDateValue,
     desc: todoContentValue,
   };
-
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -42,10 +40,8 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-
   const handlePostDeleteButton = () => {
     // dispatch(__deletePosts());
-
   };
 
   useEffect(() => {
@@ -66,7 +62,6 @@ const TodoItem = () => {
   }, []);
 
   // 커밋을 하자
-
 
   return (
     <>
@@ -188,7 +183,6 @@ const TodoDescritionStyled = styled.textarea`
     outline: none;
   }
 `;
-
 
 const TodoPostDeleteButtonContainer = styled.div`
   display: flex;
