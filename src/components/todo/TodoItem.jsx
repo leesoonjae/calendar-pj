@@ -61,7 +61,6 @@ const TodoItem = () => {
     return () => {
       // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
       const todo = localStorage.getItem("todo");
-      console.log(JSON.parse(todo));
       dispatch(__addPosts(JSON.parse(todo)));
       // 위에서 로컬스토리지에 저장한 todo를 삭제
       localStorage.removeItem("todo");
@@ -112,7 +111,6 @@ const TodoItem = () => {
         value={todoContentValue}
         onChange={handleContentChange}
       ></TodoDescritionStyled>
-      {/* <Button onClick={handleOnClickSaveButton}>추가</Button> */}
     </>
   );
 };
@@ -139,6 +137,10 @@ const TodoDatePicker = styled.input`
     cursor: pointer;
     background: transparent;
   }
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoTitleStyled = styled.input`
@@ -161,11 +163,17 @@ const TodoTitleStyled = styled.input`
   .forcePlaceholder:after {
     content: attr(placeholder);
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
+// 폰트추가
 
 const TodoDescritionStyled = styled.textarea`
   width: 100%;
-  height: 20rem;
+  height: 15rem;
   margin-top: 3rem;
   font-size: 28px;
   font-weight: 500;
@@ -177,6 +185,11 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 const TodoPostDeleteButtonContainer = styled.div`
@@ -203,6 +216,11 @@ const TodoUserNameStyled = styled.select`
   .forcePlaceholder:after {
     content: attr(placeholder);
   }
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
 `;
 
 export default TodoItem;
