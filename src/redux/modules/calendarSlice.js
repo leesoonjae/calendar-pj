@@ -12,15 +12,15 @@ const initialState = {
 export const __filteredEvents = createAsyncThunk(
   "filteredEvents",
   async (payload, ThunkAPI) => {
-    console.log("filteredEvent의 payload", payload);
     try {
       const response = await axios.get("http://localhost:3001/posts");
-      // const result = ThunkAPI.fulfillWithValue(response.data).filter((item) => {
-      //   if (item.userId === payload) {
-      //     return item;
-      //   }
-      // });
-      const result = ThunkAPI.fulfillWithValue(response.data);
+      const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
+        (item) => {
+          if (item.userId === payload) {
+            return item;
+          }
+        }
+      );
       return result;
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -91,19 +91,6 @@ const calendarSlice = createSlice({
     deleteComment: (state, action) => {
       return state.filter((item) => item.id !== action.payload);
     },
-    readEvent: () => {
-      return initialState;
-    },
-    filterEvent: (state, action) => {
-      console.log(state);
-      // const result = state.filter((item) => {
-      //   if (item.userId === action.payload) {
-      //     return item;
-      //   }
-      // });
-      // // return [...state, result]; // 전체 데이터 + 필터링 데이터
-      // return result;
-    },
   },
   extraReducers: {
     // 캘린더에서 이벤트 조회
@@ -111,13 +98,8 @@ const calendarSlice = createSlice({
       state.isLanding = true;
     },
     [__filteredEvents.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.isLanding = false;
-      // state.posts = state.filter((item) => {
-      //   if (item.userId === action.payload) {
-      //     return item;
-      //   }
-      // });
+      state.posts = action.payload;
     },
     [__filteredEvents.rejected]: (state, action) => {
       state.isLanding = false;
@@ -150,13 +132,7 @@ const calendarSlice = createSlice({
   },
 });
 
-export const {
-  addPost,
-  deletePost,
-  addComment,
-  deleteComment,
-  readEvent,
-  filterEvent,
-} = calendarSlice.actions;
+export const { addPost, deletePost, addComment, deleteComment } =
+  calendarSlice.actions;
 
 export default calendarSlice.reducer;

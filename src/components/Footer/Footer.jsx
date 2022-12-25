@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import {
-  readEvent,
-  filterEvent,
+  __getPosts,
   __filteredEvents,
 } from "../../redux/modules/calendarSlice";
 
@@ -16,7 +15,7 @@ const Footer = () => {
     dispatch(__filteredEvents(e.target.innerText));
   };
   const hideFilter = () => {
-    dispatch(readEvent());
+    dispatch(__getPosts());
   };
 
   return (
