@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 const TodoItem = () => {
   const dispatch = useDispatch();
   const todo = useSelector((state) => state.calendar);
+
   // console.log(state);
 
   const [todoTitleValue, setTodoTitleValue] = useState("");
@@ -33,9 +34,28 @@ const TodoItem = () => {
     desc: todoContentValue,
   };
 
+  // password value값 받아서 보내기(input창에)
+
   const handleOnclickSaveButton = () => {
     dispatch(__addPosts(newTodo));
   };
+
+  useEffect(() => {
+    // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
+    // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
+    localStorage.setItem("todo", JSON.stringify(newTodo));
+  }, [newTodo]);
+
+  useEffect(() => {
+    return () => {
+      // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
+      const todo = localStorage.getItem("todo");
+      console.log(JSON.parse(todo));
+      dispatch(__addPosts(JSON.parse(todo)));
+      // 위에서 로컬스토리지에 저장한 todo를 삭제
+      localStorage.removeItem("todo");
+    };
+  }, []);
 
   return (
     <>
@@ -83,7 +103,6 @@ const TodoDatePicker = styled.input`
     top: 20%;
     right: auto;
     bottom: auto;
-    left: 10%;
     width: 30%;
     height: 2rem;
     color: rgb(104, 104, 104);
@@ -129,8 +148,5 @@ const TodoDescritionStyled = styled.textarea`
     outline: none;
   }
 `;
-
-// 브랜치 새로 만들었지롱
-// 커밋 호호호
 
 export default TodoItem;
