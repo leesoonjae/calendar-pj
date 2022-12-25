@@ -29,7 +29,9 @@ export const Calendar = () => {
   return (
     <>
       {showModal && (
-        <Modal onClick={hideModalHandler}>{<CalenderForm />}</Modal>
+        <Modal onClick={hideModalHandler}>
+          {<CalenderForm  />}
+        </Modal>
       )}
       <CalendarContainer>
         <Button onClick={showModalHandler}>상세페이지 임시</Button>

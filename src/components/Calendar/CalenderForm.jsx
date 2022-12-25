@@ -40,7 +40,7 @@ const TodoDescritionStyled = styled.div`
   }
 `;
 
-export const CalenderForm = (props) => {
+export const CalenderForm = () => {
   //  submit 함수
 
   // const submitHandler = (e) => {
@@ -50,16 +50,15 @@ export const CalenderForm = (props) => {
   return (
     <>
       <TodoTitleContainer>
-        <TodoTitleStyled
-          placeholder="제목 없음"
-          contentEditable={true}
-          spellcheck="true"
-        >
-          제목 없음{" "}
+        <TodoTitleStyled placeholder="제목 없음">
+          {/* contentEditable={true}
+          spellcheck="true" 제목 없음{" "} */}
+          제목
         </TodoTitleStyled>
         <Line px="10px" />
-        <TodoDescritionStyled contentEditable={true} spellcheck="true">
-          내용 수정 해봐
+        <TodoDescritionStyled>
+          {/* contentEditable={true} spellcheck="true" */}
+          내용
         </TodoDescritionStyled>
         <Line px="32px" />
         <CommentsList />

@@ -15,9 +15,9 @@ const ModalStyled = styled.div`
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  max-width: 960px;
+  max-width: 860px;
   height: calc(100% - 144px);
-  padding: 1rem;
+  padding: 2.5rem;
   border-radius: 14px;
   background-color: white;
   box-shadow: rgb(15 15 15 / 2%) 0px 0px 0px 1px, rgb(15 15 15 / 3%) 0px 3px 6px,
@@ -27,6 +27,7 @@ const ModalStyled = styled.div`
   right: 72px;
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
+  overflow: scroll;
 `;
 
 const Backdrop = (props) => {
