@@ -1,13 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 // // 초기 상태 값(initialState)
 const initialState = {
-  posts: [{ userId: "", id: uuidv4(), title: "", date: "", desc: "" }],
+  posts: [],
   idLoading: false,
   error: null,
 };
+
+// 푸터 팀원 이벤트 필터링
+export const __filteredEvents = createAsyncThunk(
+  "filteredEvents",
+  async (payload, ThunkAPI) => {
+    try {
+      const response = await axios.get("http://localhost:3001/posts");
+      const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
+        (item) => {
+          if (item.userId === payload) {
+            return item;
+          }
+        }
+      );
+      return result;
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 // 포스트 조회
 export const __getPosts = createAsyncThunk(
@@ -67,20 +86,26 @@ const calendarSlice = createSlice({
   name: "calendar",
   initialState,
   reducers: {
-    // addPost: (state, action) => {
-    //   return [...state, action.payload];
-    // },
-    //   deletePost: (state, action) => {
-    //     return state.filter((item) => item.id !== action.payload);
-    //   },
-    //   addComment: (state, action) => {
-    //     return [...state, action.payload];
-    //   },
-    //   deleteComment: (state, action) => {
-    //     return state.filter((item) => item.id !== action.payload);
-    //   },
+    addComment: (state, action) => {
+      return [...state, action.payload];
+    },
+    deleteComment: (state, action) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
   },
   extraReducers: {
+    // 캘린더에서 이벤트 조회
+    [__filteredEvents.pending]: (state) => {
+      state.isLanding = true;
+    },
+    [__filteredEvents.fulfilled]: (state, action) => {
+      state.isLanding = false;
+      state.posts = action.payload;
+    },
+    [__filteredEvents.rejected]: (state, action) => {
+      state.isLanding = false;
+      state.error = action.payload;
+    },
     // 포스트를 조회할 때
     [__getPosts.pending]: (state) => {
       state.isLanding = true;
@@ -105,33 +130,10 @@ const calendarSlice = createSlice({
       state.isLanding = false;
       state.error = action.payload;
     },
-    addComment: (state, action) => {
-      return [...state, action.payload];
-    },
-    deleteComment: (state, action) => {
-      return state.filter((item) => item.id !== action.payload);
-    },
-    readEvent: () => {
-      return initialState;
-    },
-    filterEvent: (state, action) => {
-      const result = state.filter((item) => {
-        if (item.userId === action.payload) {
-          return item;
-        }
-      });
-      // return [...state, result]; // 전체 데이터 + 필터링 데이터
-      return result;
-    },
   },
 });
 
-export const {
-  addPost,
-  deletePost,
-  addComment,
-  deleteComment,
-  readEvent,
-  filterEvent,
-} = calendarSlice.actions;
+export const { addPost, deletePost, addComment, deleteComment } =
+  calendarSlice.actions;
+
 export default calendarSlice.reducer;
