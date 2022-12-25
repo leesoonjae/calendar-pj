@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
@@ -26,8 +26,13 @@ export const Calendar = () => {
 
   const hideModalHandler = () => {
     setShowModal(false);
-    dispatch(__addPosts());
   };
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(__addPosts());
+  //     // console.log(newTodo);
+  //   };
+  // }, []);
 
   return (
     <>
