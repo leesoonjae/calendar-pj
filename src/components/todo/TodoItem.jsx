@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const TodoItem = () => {
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.posts);
+  const todo = useSelector((state) => state.calendar);
 
   // console.log(state);
 
@@ -16,12 +16,14 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
 
+
   const newTodo = {
     id: uuidv4(),
     title: todoTitleValue,
     date: todoDateValue,
     desc: todoContentValue,
   };
+
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -34,9 +36,10 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-  //추가 버튼을 클릭시
-  const handleOnclickSaveButton = () => {
-    dispatch(__addPosts(newTodo));
+
+  const handlePostDeleteButton = () => {
+    // dispatch(__deletePosts());
+
   };
 
   useEffect(() => {
@@ -55,10 +58,15 @@ const TodoItem = () => {
       localStorage.removeItem("todo");
     };
   }, []);
+
   // 커밋을 하자
+
 
   return (
     <>
+      <TodoPostDeleteButtonContainer>
+        <Button onClick={handlePostDeleteButton}>삭제</Button>
+      </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
         contentEditable={true}
@@ -81,7 +89,7 @@ const TodoItem = () => {
         value={todoContentValue}
         onChange={handleContentChange}
       ></TodoDescritionStyled>
-      <Button onClick={handleOnclickSaveButton}>추가</Button>
+      {/* <Button onClick={handleOnClickSaveButton}>추가</Button> */}
     </>
   );
 };
@@ -103,7 +111,6 @@ const TodoDatePicker = styled.input`
     top: 20%;
     right: auto;
     bottom: auto;
-    left: 10%;
     width: 30%;
     height: 2rem;
     color: rgb(104, 104, 104);
@@ -148,6 +155,12 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
+`;
+
+
+const TodoPostDeleteButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
 
 export default TodoItem;
