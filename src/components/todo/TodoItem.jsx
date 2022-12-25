@@ -16,14 +16,6 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
 
-<<<<<<< HEAD
-  // 제목이나 내용 입력을 안 했거나 제목을 10글자 이상 작성하지 않았을 때 쓰는 hook(useRef)
-  // const todoTitleRef = useRef(null);
-  // const todoContentRef = useRef(null);
-
-  // title input창에 있는 현재 value를 받아오는 이벤트
-=======
-
   const newTodo = {
     id: uuidv4(),
     title: todoTitleValue,
@@ -31,8 +23,11 @@ const TodoItem = () => {
     desc: todoContentValue,
   };
 
+  // 제목이나 내용 입력을 안 했거나 제목을 10글자 이상 작성하지 않았을 때 쓰는 hook(useRef)
+  // const todoTitleRef = useRef(null);
+  // const todoContentRef = useRef(null);
 
->>>>>>> c1a38b79dd2412ed67143e7b86b118b0acbfe1fb
+  // title input창에 있는 현재 value를 받아오는 이벤트
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
   };
@@ -44,13 +39,10 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-
   const handlePostDeleteButton = () => {
     // dispatch(__deletePosts());
-
   };
 
-<<<<<<< HEAD
   // password value값 받아서 보내기(input창에)
 
   // const handleOnClickSaveButton = () => {
@@ -82,10 +74,6 @@ const TodoItem = () => {
   //   }
   // };
 
-  const handlePostDeleteButton = () => {
-    // dispatch(__deletePosts());
-  };
-=======
   useEffect(() => {
     // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
     // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
@@ -102,27 +90,7 @@ const TodoItem = () => {
       localStorage.removeItem("todo");
     };
   }, []);
-
   // 커밋을 하자
-
->>>>>>> c1a38b79dd2412ed67143e7b86b118b0acbfe1fb
-
-  useEffect(() => {
-    // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
-    // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
-    localStorage.setItem("todo", JSON.stringify(newTodo));
-  }, [newTodo]);
-
-  useEffect(() => {
-    return () => {
-      // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
-      const todo = localStorage.getItem("todo");
-      console.log(JSON.parse(todo));
-      dispatch(__addPosts(JSON.parse(todo)));
-      // 위에서 로컬스토리지에 저장한 todo를 삭제
-      localStorage.removeItem("todo");
-    };
-  }, []);
 
   return (
     <>
@@ -219,10 +187,6 @@ const TodoDescritionStyled = styled.textarea`
   }
 `;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c1a38b79dd2412ed67143e7b86b118b0acbfe1fb
 const TodoPostDeleteButtonContainer = styled.div`
   display: flex;
   justify-content: end;
