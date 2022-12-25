@@ -19,7 +19,7 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 add
@@ -39,11 +39,31 @@ export const __addPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
+);
+
+// 포스트 delete 수정중
+export const __deletePosts = createAsyncThunk(
+  "deletePosts",
+  async (newTodo, ThunkAPI) => {
+    try {
+      await axios.delete("http://localhost:3001/posts", {
+        id: newTodo.id,
+        title: newTodo.title,
+        date: newTodo.date,
+        desc: newTodo.desc,
+      });
+      const response = await axios.get("http://localhost:3001/posts");
+
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
 );
 
 const calendarSlice = createSlice({
-  name: "posts",
+  name: "calendar",
   initialState,
   reducers: {
     //   addPost: (state, action) => {
@@ -84,9 +104,33 @@ const calendarSlice = createSlice({
       state.isLanding = false;
       state.error = action.payload;
     },
+    addComment: (state, action) => {
+      return [...state, action.payload];
+    },
+    deleteComment: (state, action) => {
+      return state.filter((item) => item.id !== action.payload);
+    },
+    readEvent: () => {
+      return initialState;
+    },
+    filterEvent: (state, action) => {
+      const result = state.filter((item) => {
+        if (item.userId === action.payload) {
+          return item;
+        }
+      });
+      // return [...state, result]; // 전체 데이터 + 필터링 데이터
+      return result;
+    },
   },
 });
 
-export const { addPost, deletePost, addComment, deleteComment } =
-  calendarSlice.actions;
+export const {
+  addPost,
+  deletePost,
+  addComment,
+  deleteComment,
+  readEvent,
+  filterEvent,
+} = calendarSlice.actions;
 export default calendarSlice.reducer;

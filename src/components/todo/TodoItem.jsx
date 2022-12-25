@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
@@ -9,11 +9,21 @@ import { v4 as uuidv4 } from "uuid";
 const TodoItem = () => {
   const dispatch = useDispatch();
   const todo = useSelector((state) => state.calendar);
+
   // console.log(state);
 
   const [todoTitleValue, setTodoTitleValue] = useState("");
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
+
+
+  const newTodo = {
+    id: uuidv4(),
+    title: todoTitleValue,
+    date: todoDateValue,
+    desc: todoContentValue,
+  };
+
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -26,19 +36,37 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
-  const newTodo = {
-    id: uuidv4(),
-    title: todoTitleValue,
-    date: todoDateValue,
-    desc: todoContentValue,
+
+  const handlePostDeleteButton = () => {
+    // dispatch(__deletePosts());
+
   };
 
-  const handleOnclickSaveButton = () => {
-    dispatch(__addPosts(newTodo));
-  };
+  useEffect(() => {
+    // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
+    // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
+    localStorage.setItem("todo", JSON.stringify(newTodo));
+  }, [newTodo]);
+
+  useEffect(() => {
+    return () => {
+      // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
+      const todo = localStorage.getItem("todo");
+      console.log(JSON.parse(todo));
+      dispatch(__addPosts(JSON.parse(todo)));
+      // 위에서 로컬스토리지에 저장한 todo를 삭제
+      localStorage.removeItem("todo");
+    };
+  }, []);
+
+  // 커밋을 하자
+
 
   return (
     <>
+      <TodoPostDeleteButtonContainer>
+        <Button onClick={handlePostDeleteButton}>삭제</Button>
+      </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
         contentEditable={true}
@@ -61,7 +89,7 @@ const TodoItem = () => {
         value={todoContentValue}
         onChange={handleContentChange}
       ></TodoDescritionStyled>
-      <Button onClick={handleOnclickSaveButton}>추가</Button>
+      {/* <Button onClick={handleOnClickSaveButton}>추가</Button> */}
     </>
   );
 };
@@ -83,7 +111,6 @@ const TodoDatePicker = styled.input`
     top: 20%;
     right: auto;
     bottom: auto;
-    left: 10%;
     width: 30%;
     height: 2rem;
     color: rgb(104, 104, 104);
@@ -130,7 +157,10 @@ const TodoDescritionStyled = styled.textarea`
   }
 `;
 
-// 브랜치 새로 만들었지롱
-// 커밋 호호호
+
+const TodoPostDeleteButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+`;
 
 export default TodoItem;
