@@ -27,12 +27,7 @@ export const Calendar = () => {
   const hideModalHandler = () => {
     setShowModal(false);
   };
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(__addPosts());
-  //     // console.log(newTodo);
-  //   };
-  // }, []);
+  // 하하하
 
   return (
     <>
