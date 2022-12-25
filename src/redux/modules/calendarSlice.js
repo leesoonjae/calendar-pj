@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
-import styled from "styled-components";
 
 // 초기 상태 값(initialState)
 const initialState = [
