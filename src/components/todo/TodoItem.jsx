@@ -16,15 +16,21 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
+  const [todoUserIdValue, setTodoUserIdValue] = useState("");
 
   const newTodo = {
     id: uuidv4(),
     userId: todoUserIdValue,
     title: todoTitleValue,
+    userId: todoUserIdValue,
     date: todoDateValue,
     desc: todoContentValue,
   };
+  // 제목이나 내용 입력을 안 했거나 제목을 10글자 이상 작성하지 않았을 때 쓰는 hook(useRef)
+  // const todoTitleRef = useRef(null);
+  // const todoContentRef = useRef(null);
 
+  // title input창에 있는 현재 value를 받아오는 이벤트
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
   };
@@ -40,9 +46,15 @@ const TodoItem = () => {
     setTodoContentValue(event.target.value);
   };
 
+  const handleUserIdChange = (event) => {
+    setTodoUserIdValue(event.target.value);
+  };
+
   const handlePostDeleteButton = () => {
     // dispatch(__deletePosts());
   };
+
+  // password value값 받아서 보내기(input창에)
 
   useEffect(() => {
     // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
@@ -60,7 +72,6 @@ const TodoItem = () => {
       localStorage.removeItem("todo");
     };
   }, []);
-
   // 커밋을 하자
 
   return (
@@ -84,6 +95,20 @@ const TodoItem = () => {
         value={todoUserIdValue}
         type="text"
       />
+
+      <TodoUserNameStyled
+        placeholder="사용자"
+        contentEditable={true}
+        spellcheck="true"
+        onChange={handleUserIdChange}
+        value={todoUserIdValue}
+      >
+        <option value="이순재">이순재</option>
+        <option value="정하나">정하나</option>
+        <option value="변시윤">변시윤</option>
+        <option value="김재현">김재현</option>
+      </TodoUserNameStyled>
+
       <TodoDatePicker
         type="date"
         value={todoDateValue}
@@ -186,6 +211,27 @@ const TodoDescritionStyled = styled.textarea`
 const TodoPostDeleteButtonContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
+
+const TodoUserNameStyled = styled.select`
+  max-width: 100%;
+  width: 30%;
+  border: none;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  color: rgb(55, 53, 47);
+  background-color: rgba(75, 75, 75, 0.214);
+  border-radius: 0.3rem;
+
+  &:focus {
+    outline: none;
+  }
+  [contenteditable]:empty:after,
+  .forcePlaceholder:after {
+    content: attr(placeholder);
+  }
 `;
 
 export default TodoItem;
