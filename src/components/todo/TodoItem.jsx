@@ -1,31 +1,30 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { __addPosts } from "../../redux/modules/calendarSlice";
+import {
+  __updatePost,
+  __deletePost,
+  __addPost,
+} from "../../redux/modules/calendarSlice";
 import { v4 as uuidv4 } from "uuid";
-import { produceWithPatches } from "immer";
+// import { useNavigate } from "react-router-dom";
 import { BsTrash } from "react-icons/bs";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const TodoItem = () => {
+const TodoItem = ({ seletedId }) => {
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.calendar);
+  // const navigate = useNavigate();
+  const todos = useSelector((state) => state.calendar.posts);
+  const todo = todos.filter((todo) => todo.id === seletedId);
 
   // console.log(state);
 
-  const [todoTitleValue, setTodoTitleValue] = useState("");
-  const [todoDateValue, setTodoDateValue] = useState("");
-  const [todoContentValue, setTodoContentValue] = useState("");
-  const [todoUserIdValue, setTodoUserIdValue] = useState("");
-
-  const newTodo = {
-    id: uuidv4(),
-    title: todoTitleValue,
-    userId: todoUserIdValue,
-    date: todoDateValue,
-    desc: todoContentValue,
-  };
+  const [todoTitleValue, setTodoTitleValue] = useState(todo[0].title);
+  const [todoDateValue, setTodoDateValue] = useState(todo[0].date);
+  const [todoContentValue, setTodoContentValue] = useState(todo[0].desc);
+  const [todoUserIdValue, setTodoUserIdValue] = useState(todo[0].userId);
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -43,26 +42,40 @@ const TodoItem = () => {
   };
 
   const handlePostDeleteButton = () => {
-    // dispatch(__deletePosts());
+    dispatch(__deletePost(todo[0].id));
+
+    // navigate("/");
   };
 
-  // password value값 받아서 보내기(input창에)
+  // 순재님 8시간 //
+  // useEffect(() => {
+  //   // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
+  //   // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
+  //   localStorage.setItem("todo", JSON.stringify(newTodo));
+  // }, [newTodo]);
 
-  useEffect(() => {
-    // unmount 되면서 재랜더링의 발생으로 인해 useState 초기화가 이루어져 값이 초기화됨
-    // 그래서 미리 newTodo객체를 로컬스토리지에 저장해놓음
-    localStorage.setItem("todo", JSON.stringify(newTodo));
-  }, [newTodo]);
+  // useEffect(() => {
+  //   return () => {
+  //     // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
+  //     const todo = localStorage.getItem("todo");
+  //     dispatch(__updatePost(JSON.parse(todo)));
+  //     // 위에서 로컬스토리지에 저장한 todo를 삭제
+  //     localStorage.removeItem("todo");
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    return () => {
-      // 로컬스토리지에 미리 담아놓은 newTodo 객체를 가져옴
-      const todo = localStorage.getItem("todo");
-      dispatch(__addPosts(JSON.parse(todo)));
-      // 위에서 로컬스토리지에 저장한 todo를 삭제
-      localStorage.removeItem("todo");
+  const savePostHandler = () => {
+    const newTodo = {
+      id: uuidv4(),
+      title: todoTitleValue,
+      userId: todoUserIdValue,
+      date: todoDateValue,
+      desc: todoContentValue,
+      isEiditng: false,
     };
-  }, []);
+
+    dispatch(__addPost(newTodo));
+  };
 
   return (
     <>
@@ -75,11 +88,17 @@ const TodoItem = () => {
         >
           <BsTrash color="black" fontSize="1.6rem" />
         </Button>
+        <Button
+          background="transparent"
+          borderColor="transparent"
+          hoverBackground="transparent"
+          onClick={savePostHandler}
+        >
+          <BsFillCheckCircleFill color="black" fontSize="1.6rem" />
+        </Button>
       </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
-        contentEditable={true}
-        spellcheck="true"
         onChange={handleTitleChange}
         value={todoTitleValue}
         type="text"
@@ -87,8 +106,6 @@ const TodoItem = () => {
 
       <TodoUserNameStyled
         placeholder="사용자"
-        contentEditable={true}
-        spellcheck="true"
         onChange={handleUserIdChange}
         value={todoUserIdValue}
       >
@@ -105,8 +122,6 @@ const TodoItem = () => {
       />
       <Line px="10px" />
       <TodoDescritionStyled
-        contentEditable={true}
-        spellcheck="true"
         type="text"
         placeholder="내용을 입력해주세요"
         value={todoContentValue}

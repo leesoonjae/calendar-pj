@@ -14,11 +14,11 @@ const TodoTitleContainer = styled.div`
   text-align: start;
 `;
 
-export const CalenderForm = (props) => {
+export const CalenderForm = ({ seletedId }) => {
   return (
     <>
       <TodoTitleContainer>
-        <TodoItem />
+        <TodoItem seletedId={seletedId} />
         <Line px="32px" />
         <CommentsList />
         <CommentForm />

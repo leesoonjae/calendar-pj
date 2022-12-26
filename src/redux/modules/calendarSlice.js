@@ -19,13 +19,13 @@ export const __filteredEvents = createAsyncThunk(
           if (item.userId === payload) {
             return item;
           }
-        },
+        }
       );
       return result;
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 조회
@@ -38,48 +38,54 @@ export const __getPosts = createAsyncThunk(
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 add
-export const __addPosts = createAsyncThunk(
+export const __addPost = createAsyncThunk(
   "addPosts",
   async (newTodo, ThunkAPI) => {
     try {
-      await axios.post("http://localhost:3001/posts", {
-        id: newTodo.id,
-        title: newTodo.title,
-        date: newTodo.date,
-        desc: newTodo.desc,
-        userId: newTodo.userId,
-      });
-      const response = await axios.get("http://localhost:3001/posts");
+      await axios.post("http://localhost:3001/posts", newTodo);
 
+      const response = await axios.get("http://localhost:3001/posts");
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
 );
 
 // 포스트 delete 수정중
-export const __deletePosts = createAsyncThunk(
+export const __deletePost = createAsyncThunk(
   "deletePosts",
-  async (newTodo, ThunkAPI) => {
+  async (payload, ThunkAPI) => {
+    console.log(payload);
     try {
-      await axios.delete("http://localhost:3001/posts", {
-        id: newTodo.id,
-        title: newTodo.title,
-        date: newTodo.date,
-        desc: newTodo.desc,
-      });
+      await axios.delete(`http://localhost:3001/posts/${payload}`);
       const response = await axios.get("http://localhost:3001/posts");
-
+      // console.log("delete", ThunkAPI.fulfillWithValue(response.data));
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  },
+  }
+);
+
+// 포스트 업데이트
+export const __updatePost = createAsyncThunk(
+  "updatePosts",
+  async (newTodo, ThunkAPI) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3001/posts/${newTodo.id}`,
+        newTodo
+      );
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
 );
 
 const calendarSlice = createSlice({
@@ -119,15 +125,41 @@ const calendarSlice = createSlice({
       state.error = action.payload;
     },
     // 포스트를 add할 때
-    [__addPosts.pending]: (state) => {
+    [__addPost.pending]: (state) => {
       state.idLoading = true;
     },
-    [__addPosts.fulfilled]: (state, action) => {
+    [__addPost.fulfilled]: (state, action) => {
       state.idLoading = false;
       state.posts = action.payload;
     },
-    [__addPosts.rejected]: (state, action) => {
+    [__addPost.rejected]: (state, action) => {
       state.idLoading = false;
+      state.error = action.payload;
+    },
+    // 삭제
+    [__deletePost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deletePost.fulfilled]: (state, action) => {
+      console.log("삭제 성공시", action.payload);
+      state.isLoading = false;
+      state.posts = action.payload;
+    },
+    [__deletePost.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // 수정
+    [__updatePost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updatePost.fulfilled]: (state, action) => {
+      console.log("업데이트 성공시", action.payload);
+      state.isLoading = false;
+      state.posts = action.payload;
+    },
+    [__updatePost.rejected]: (state, action) => {
+      state.isLoading = false;
       state.error = action.payload;
     },
   },
