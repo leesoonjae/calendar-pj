@@ -14,6 +14,7 @@ const TodoItem = () => {
   // console.log(state);
 
   const [todoTitleValue, setTodoTitleValue] = useState("");
+  const [todoTitleError, setTodoTitleError] = useState(false);
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
@@ -31,6 +32,10 @@ const TodoItem = () => {
 
   // title input창에 있는 현재 value를 받아오는 이벤트
   const handleTitleChange = (event) => {
+    const titleRegex = /^[A-Za-z0-9+]{3,}$/;
+    if (!event.target.value || titleRegex.test(event.target.value))
+      setTodoTitleError(false);
+    else setTodoTitleError(true);
     setTodoTitleValue(event.target.value);
   };
 
@@ -83,6 +88,7 @@ const TodoItem = () => {
         value={todoTitleValue}
         type="text"
       />
+      {todoTitleError && <span>제목을 3글자 이상 적어주세요</span>}
 
       <TodoUserNameStyled
         placeholder="사용자"

@@ -14,16 +14,36 @@ import "./calendar.css";
 export const Calendar = () => {
   // 이벤트 데이터
   const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  console.log(posts);
+  const { detail, setDetail } = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
+  const handleDetail = (id, posts) => {
+    console.log(id);
+    console.log(posts);
+    const postDetail = posts.find((obj) => obj.id === id);
+    console.log(postDetail);
+    if (postDetail != undefined) {
+      return;
+    } else {
+      alert("해당내용이 없습니다.");
+    }
+  };
+
   const renderEventContent = (eventInfo) => {
     return (
       <>
-        <Title>{eventInfo.event.title} </Title>
+        <Title
+          onClick={() => {
+            handleDetail(eventInfo.event.id, posts);
+          }}
+        >
+          {eventInfo.event.title}{" "}
+        </Title>
         <Comment>
           <FaRegComment size="11" />
           &nbsp;
