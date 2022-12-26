@@ -17,7 +17,6 @@ const TodoItem = () => {
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
 
-
   const newTodo = {
     id: uuidv4(),
     title: todoTitleValue,
@@ -36,7 +35,6 @@ const TodoItem = () => {
   const handleContentChange = (event) => {
     setTodoContentValue(event.target.value);
   };
-
 
   const handleUserIdChange = (event) => {
     setTodoUserIdValue(event.target.value);
@@ -180,7 +178,6 @@ const TodoDescritionStyled = styled.textarea`
   &:focus {
     outline: none;
   }
-
 
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",

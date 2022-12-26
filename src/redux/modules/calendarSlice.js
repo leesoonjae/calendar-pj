@@ -1,3 +1,4 @@
+import { StandardEvent } from "@fullcalendar/core/internal";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -12,15 +13,19 @@ const initialState = {
 export const __filteredEvents = createAsyncThunk(
   "filteredEvents",
   async (payload, ThunkAPI) => {
-    const response = await axios.get("http://localhost:3001/posts");
-    const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
-      (item) => {
-        if (item.userId === payload) {
-          return item;
+    try {
+      const response = await axios.get("http://localhost:3001/posts");
+      const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
+        (item) => {
+          if (item.userId === payload) {
+            return item;
+          }
         }
-      }
-    );
-    return result;
+      );
+      return result;
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
   }
 );
 
@@ -89,33 +94,40 @@ const calendarSlice = createSlice({
     },
   },
   extraReducers: {
-    // 캘린더에서 이벤트 조회
+    // 캘린더에서 팀원별 이벤트 필터링
+    [__filteredEvents.pending]: (state) => {
+      state.isLoading = true;
+    },
     [__filteredEvents.fulfilled]: (state, action) => {
-      state.isLanding = false;
+      state.isLoading = false;
       state.posts = action.payload;
+    },
+    [__filteredEvents]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
     // 포스트를 조회할 때
     [__getPosts.pending]: (state) => {
-      state.isLanding = true;
+      state.isLoading = true;
     },
     [__getPosts.fulfilled]: (state, action) => {
-      state.isLanding = false;
+      state.isLoading = false;
       state.posts = action.payload;
     },
     [__getPosts.rejected]: (state, action) => {
-      state.isLanding = false;
+      state.isLoading = false;
       state.error = action.payload;
     },
     // 포스트를 add할 때
     [__addPosts.pending]: (state) => {
-      state.isLanding = true;
+      state.isLoading = true;
     },
     [__addPosts.fulfilled]: (state, action) => {
-      state.isLanding = false;
+      state.isLoading = false;
       state.posts = action.payload;
     },
     [__addPosts.rejected]: (state, action) => {
-      state.isLanding = false;
+      state.isLoading = false;
       state.error = action.payload;
     },
   },

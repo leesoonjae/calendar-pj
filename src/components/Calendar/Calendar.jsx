@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -13,8 +14,9 @@ import "./calendar.css";
 
 export const Calendar = () => {
   // 이벤트 데이터
-  const { posts } = useSelector((state) => state.calendar);
+  const { posts, isLoading, error } = useSelector((state) => state.calendar);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(__getPosts());
@@ -39,12 +41,21 @@ export const Calendar = () => {
 
   // 모달
   const [showModal, setShowModal] = useState(false);
-  const showModalHandler = () => {
+  const showModalHandler = (e) => {
+    navigate(`/${e.event._def.publicId}`);
     setShowModal(true);
   };
   const hideModalHandler = () => {
     setShowModal(false);
   };
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+
+  if (error) {
+    return <>{error.message}</>;
+  }
 
   return (
     <>
@@ -58,7 +69,7 @@ export const Calendar = () => {
           initialView="dayGridMonth"
           events={posts}
           eventContent={renderEventContent}
-          eventClick={showModalHandler}
+          eventClick={(e) => showModalHandler(e)}
           dateClick={showModalHandler}
           editable={true}
           eventTextColor="initial"
@@ -76,7 +87,6 @@ const CalendarContainer = styled.div`
   height: 100%;
   align-items: center;
   padding: 2rem;
-  margin-top: 8rem;
 `;
 
 const Title = styled.span`
