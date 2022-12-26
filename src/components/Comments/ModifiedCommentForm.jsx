@@ -1,17 +1,16 @@
-import { v4 } from "uuid";
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
-import { addComment } from "../../redux/modules/calendarSlice";
+import styled from "styled-components";
+import { updateComment } from "../../redux/modules/calendarSlice";
+import { Button } from "../UI/Button";
 
-const CommentForm = () => {
+const ModifiedCommentForm = ({ commentData, setIsEdited }) => {
+  const [enteredName, setEnteredName] = useState(commentData.name);
+  const [enteredComment, setEnteredComment] = useState(commentData.comment);
+
+  console.log(commentData);
+
   const dispatch = useDispatch();
-
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredComment, setEnteredComment] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-  //   const [createComment, setCreateComment] = useState("");
 
   // handler
   const nameChangeHandler = (e) => {
@@ -20,79 +19,56 @@ const CommentForm = () => {
   const commentChangeHandler = (e) => {
     setEnteredComment(e.target.value);
   };
-  const passwordChangeHandler = (e) => {
-    setEnteredPassword(e.target.value);
-  };
 
   // 댓글 저장
   const saveCommentHandler = (e) => {
     e.preventDefault();
 
-    // 유효성 검사
-    // if (
-    //   enteredName.length === 0 ||
-    //   enteredComment.length === 0 ||
-    //   enteredPassword.length !== 4
-    // ) {
-    //   alert("닉네임 내용 비밀번호를 확인하세요");
-    //   return;
-    // }
-
-    const commentData = {
+    // #TODO 유효성 검사
+    const newCommentData = {
       Id: "1203004",
-      commentId: v4(),
+      commentId: commentData.commentId,
       name: enteredName,
-      password: enteredPassword,
+      password: commentData.password,
       comment: enteredComment,
       date: new Date().toISOString.toString(),
     };
-    dispatch(addComment(commentData));
-
-    setEnteredComment("");
-    setEnteredName("");
-    setEnteredPassword("");
+    dispatch(updateComment(newCommentData));
+    setIsEdited(false);
   };
   return (
     <>
       <CommentsForm onSubmit={saveCommentHandler}>
-        <InputNameStyled
+        <InputStyled
+          width="20%"
           placeholder="닉네임"
           onChange={nameChangeHandler}
           value={enteredName}
         />
-        <InputCommentStyled
+        <InputStyled
+          width="80%"
           placeholder="내용을 입력해주세요."
           onChange={commentChangeHandler}
           value={enteredComment}
         />
-        <InputPasswordStyled
-          type="password"
-          autoComplete="off"
-          maxLength="4"
-          placeholder="비밀번호"
-          onChange={passwordChangeHandler}
-          value={enteredPassword}
-        />
 
         <Button type="submit">
-          <span className="material-symbols-outlined">arrow_upward</span>
+          <span className="material-icons-outlined">done</span>
         </Button>
       </CommentsForm>
     </>
   );
 };
 
-export default CommentForm;
-
-//스타일
+export default ModifiedCommentForm;
 
 const CommentsForm = styled.form`
   display: flex;
   justify-content: space-between;
 `;
 
-const InputNameStyled = styled.input`
-  width: 10%;
+const InputStyled = styled.input`
+  width: ${(props) => props.width};
   background: inherit;
   border-radius: 5px;
   padding: 0.7rem;
@@ -143,8 +119,4 @@ const InputPasswordStyled = styled.input`
   &:focus {
     outline: none;
   }
-`;
-
-const ButtonContainer = styled.div`
-  margin-bottom: 3rem;
 `;

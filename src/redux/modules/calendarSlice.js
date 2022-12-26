@@ -39,15 +39,27 @@ const calendarSlice = createSlice({
 
       const selectedPost = state.post.filter((item) => item.Id === Id);
       // console.log(current(state.post[0].comments));
-      console.log(current(state));
+      // console.log(current(state));
       const commentIdx = selectedPost[0].comments.findIndex(
         (item) => item.commentId === commentId
       );
-      console.log(commentIdx);
+      // console.log(commentIdx);
       selectedPost[0].comments.splice(commentIdx, 1);
+    },
+    updateComment: (state, action) => {
+      const { Id, commentId } = action.payload;
+
+      // 1. 수정할 댓글 객체를 찾는다.
+      const selectedPost = state.post.filter((item) => item.Id === Id);
+      const commentIdx = selectedPost[0].comments.findIndex(
+        (item) => item.commentId === commentId
+      );
+      selectedPost[0].comments[commentIdx] = { ...action.payload };
+      // 2. 해당 댓글객체를 업데이트 시킨다.
     },
   },
 });
 
-export const { addComment, removeComment } = calendarSlice.actions;
+export const { addComment, removeComment, updateComment } =
+  calendarSlice.actions;
 export default calendarSlice.reducer;

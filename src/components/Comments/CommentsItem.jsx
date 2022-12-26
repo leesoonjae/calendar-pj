@@ -3,50 +3,101 @@ import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
 import { removeComment } from "../../redux/modules/calendarSlice";
+import ModifiedCommentForm from "./ModifiedCommentForm";
 
 export const CommentsItem = ({ commentData }) => {
+  const [showPasswordCheckBox, setShowPasswordCheckBox] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
+  const [enterdPassword, setEnterdPassword] = useState();
 
   const dispatch = useDispatch();
 
+  // 수정을 위한 state 관리
+  // const nameChangeHandler = (e) => {
+  //   setUpdateName(e.target.value);
+  // };
+  // const commentChangeHandler = (e) => {
+  //   setUpdateComment(e.target.value);
+  // };
+
+  // 수정
   const commentUpdateHandler = () => {
-    if (isEdited) {
-      console.log("저장로직");
+    setShowPasswordCheckBox(true);
+
+    if (showPasswordCheckBox) {
+      if (enterdPassword === commentData.password) {
+        console.log("비번맞음");
+        setIsEdited(true);
+      } else {
+        console.log("비번 다름");
+        setEnterdPassword("");
+      }
     }
-    setIsEdited(!isEdited);
   };
+
+  const passwordChangeHandler = (e) => {
+    setEnterdPassword(e.target.value);
+  };
+
+  // 삭제
   const commentDeletedHandler = () => {
     alert("삭제할까요?");
-    // console.log(commentData.Id, commentData.commentId);
     dispatch(
       removeComment({ Id: commentData.Id, commentId: commentData.commentId })
     );
   };
-  // console.log(commentData);
+
   return (
     <>
       <CommentsItemContainer>
-        <BalloonContainer>
-          <ContentStyled width="100%">{commentData.name}</ContentStyled>
-          <ContentStyled width="100%">{commentData.comment}</ContentStyled>
-        </BalloonContainer>
-        <div></div>
+        {isEdited ? (
+          <>
+            {/* 수정 모달  */}
+            <ModifiedCommentForm
+              commentData={commentData}
+              setIsEdited={setIsEdited}
+            />
+          </>
+        ) : (
+          <>
+            <ContentGruop>
+              <ContentStyled width="100%">{commentData.name}</ContentStyled>
+              <BalloonContainer>
+                <ContentStyled width="100%">
+                  {commentData.comment}
+                </ContentStyled>
+              </BalloonContainer>
+            </ContentGruop>
+            {showPasswordCheckBox ? (
+              <input
+                type="password"
+                autoComplete="off"
+                maxLength="4"
+                placeholder="비밀번호를 입력하세요."
+                value={enterdPassword}
+                onChange={passwordChangeHandler}
+              />
+            ) : (
+              <div></div>
+            )}
 
-        <ButtonGrup>
-          {isEdited ? (
-            <Button onClick={commentUpdateHandler}>
-              <span className="material-icons-outlined">menu</span>
-            </Button>
-          ) : (
-            <Button onClick={commentUpdateHandler}>
-              <span className="material-icons-outlined">update</span>
-            </Button>
-          )}
+            <ButtonGrup>
+              {showPasswordCheckBox ? (
+                <Button onClick={commentUpdateHandler}>
+                  <span className="material-icons-outlined">done</span>
+                </Button>
+              ) : (
+                <Button onClick={commentUpdateHandler}>
+                  <span className="material-icons-outlined">update</span>
+                </Button>
+              )}
 
-          <Button onClick={commentDeletedHandler}>
-            <span className="material-icons-outlined">clear</span>
-          </Button>
-        </ButtonGrup>
+              <Button onClick={commentDeletedHandler}>
+                <span className="material-icons-outlined">clear</span>
+              </Button>
+            </ButtonGrup>
+          </>
+        )}
       </CommentsItemContainer>
     </>
   );
@@ -61,12 +112,20 @@ const CommentsItemContainer = styled.div`
   width: 100%;
 `;
 
+//텍스트 컨테이너
+
+const ContentGruop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 // 물풍선
 const BalloonContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  /* margin: 50px; */
+  margin-left: 2rem;
 
   height: 3.5rem;
   background: #d9d7d757;
