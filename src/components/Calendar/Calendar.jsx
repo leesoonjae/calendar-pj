@@ -13,9 +13,8 @@ import "./calendar.css";
 
 export const Calendar = () => {
   // 이벤트 데이터
-  const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  const { posts } = useSelector((state) => state.calendar);
   console.log(posts);
-  const { detail, setDetail } = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,11 +22,13 @@ export const Calendar = () => {
   }, [dispatch]);
 
   const handleDetail = (id, posts) => {
-    console.log(id);
-    console.log(posts);
-    const postDetail = posts.find((obj) => obj.id === id);
+    // const find = posts.filter((item) => item.id === e.target.id);
+    // console.log(posts);
+    // console.log(find);
+    // console.log(posts);
+    const postDetail = posts.find((opj) => opj.id === id);
     console.log(postDetail);
-    if (postDetail != undefined) {
+    if (postDetail) {
       return;
     } else {
       alert("해당내용이 없습니다.");
@@ -35,11 +36,15 @@ export const Calendar = () => {
   };
 
   const renderEventContent = (eventInfo) => {
+    // eventInfo.event._context.options.events
+    const helpme = eventInfo.event._context.options.events;
+
     return (
       <>
         <Title
+          id={eventInfo.event.id}
           onClick={() => {
-            handleDetail(eventInfo.event.id, posts);
+            handleDetail(eventInfo.event.id, helpme);
           }}
         >
           {eventInfo.event.title}{" "}
@@ -61,7 +66,6 @@ export const Calendar = () => {
   const hideModalHandler = () => {
     setShowModal(false);
   };
-
   return (
     <>
       {showModal && (
