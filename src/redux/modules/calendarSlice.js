@@ -1,4 +1,3 @@
-import { StandardEvent } from "@fullcalendar/core/internal";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -36,6 +35,26 @@ export const __getPosts = createAsyncThunk(
     try {
       const response = await axios.get("http://localhost:3001/posts");
       return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __readPost = createAsyncThunk(
+  "readPost",
+  async (payload, ThunkAPI) => {
+    try {
+      const response = await axios.get("http://localhost:3001/posts");
+      const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
+        (item) => {
+          if (item.id === payload) {
+            return item;
+          }
+        }
+      );
+      // console.log("__readPost의 return: ", result);
+      return result;
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
@@ -95,9 +114,6 @@ const calendarSlice = createSlice({
   },
   extraReducers: {
     // 캘린더에서 팀원별 이벤트 필터링
-    [__filteredEvents.pending]: (state) => {
-      state.isLoading = true;
-    },
     [__filteredEvents.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.posts = action.payload;
@@ -106,7 +122,7 @@ const calendarSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    // 포스트를 조회할 때
+    // 이벤트 조회
     [__getPosts.pending]: (state) => {
       state.isLoading = true;
     },
@@ -115,6 +131,19 @@ const calendarSlice = createSlice({
       state.posts = action.payload;
     },
     [__getPosts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // 포스트 조회
+    [__readPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__readPost.fulfilled]: (state, action) => {
+      // console.log("__readPost.fulfilled의 action.payload: ", action.payload);
+      state.isLoading = false;
+      state.posts = action.payload;
+    },
+    [__readPost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

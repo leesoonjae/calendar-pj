@@ -7,14 +7,15 @@ import interactionPlugin from "@fullcalendar/interaction";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
-import { CalenderForm } from "./CalenderForm";
+import { AddPostForm, ReadPostForm } from "./CalendarForm";
 import { FaRegComment } from "react-icons/fa";
-import { __getPosts } from "../../redux/modules/calendarSlice";
+import { __getPosts, __readPost } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
 
 export const Calendar = () => {
   // 이벤트 데이터
-  const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  const { posts, error } = useSelector((state) => state.calendar);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ export const Calendar = () => {
     dispatch(__getPosts());
   }, [dispatch]);
 
+  //  이벤트 정보 커스텀
   const renderEventContent = (eventInfo) => {
     return (
       <>
@@ -39,19 +41,27 @@ export const Calendar = () => {
     );
   };
 
-  // 모달
-  const [showModal, setShowModal] = useState(false);
-  const showModalHandler = (e) => {
-    navigate(`/${e.event._def.publicId}`);
-    setShowModal(true);
+  // 글 작성 모달
+  const [addPost, setAddPost] = useState(false);
+  const addPostHandler = () => {
+    // console.log(e.event._instance.range.start);
+    setAddPost(true);
   };
   const hideModalHandler = () => {
-    setShowModal(false);
+    setAddPost(false);
   };
 
-  if (isLoading) {
-    return <>Loading...</>;
-  }
+  // 상세페이지 모달
+  const [readPost, setReadPost] = useState(false);
+  const readPostHandler = (e) => {
+    setReadPost(true);
+    navigate(`/${e.event._def.publicId}`);
+    dispatch(__readPost(e.event._def.publicId));
+  };
+  const hideEventHandler = () => {
+    setReadPost(false);
+    dispatch(__getPosts());
+  };
 
   if (error) {
     return <>{error.message}</>;
@@ -59,21 +69,22 @@ export const Calendar = () => {
 
   return (
     <>
-      {showModal && (
-        <Modal onClick={hideModalHandler}>{<CalenderForm />}</Modal>
-      )}
       <CalendarContainer>
-        <Button onClick={showModalHandler}>이벤트 추가</Button>
+        <Button onClick={addPostHandler}>이벤트 추가</Button>
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           events={posts}
           eventContent={renderEventContent}
-          eventClick={(e) => showModalHandler(e)}
-          dateClick={showModalHandler}
+          eventClick={(e) => readPostHandler(e)}
+          dateClick={addPostHandler}
           editable={true}
           eventTextColor="initial"
         />
+        {addPost && <Modal onClick={hideModalHandler}>{<AddPostForm />}</Modal>}
+        {readPost && (
+          <Modal onClick={hideEventHandler}>{<ReadPostForm />}</Modal>
+        )}
       </CalendarContainer>
     </>
   );
