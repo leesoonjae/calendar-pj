@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
+import { useDispatch } from "react-redux";
+import { removeComment } from "../../redux/modules/calendarSlice";
 
 export const CommentsItem = ({ commentData }) => {
   const [isEdited, setIsEdited] = useState(false);
+
+  const dispatch = useDispatch();
 
   const commentUpdateHandler = () => {
     if (isEdited) {
@@ -12,7 +16,11 @@ export const CommentsItem = ({ commentData }) => {
     setIsEdited(!isEdited);
   };
   const commentDeletedHandler = () => {
-    alert("삭제하시겠습니까?");
+    alert("삭제할까요?");
+    // console.log(commentData.Id, commentData.commentId);
+    dispatch(
+      removeComment({ Id: commentData.Id, commentId: commentData.commentId })
+    );
   };
   // console.log(commentData);
   return (
@@ -23,14 +31,21 @@ export const CommentsItem = ({ commentData }) => {
           <ContentStyled width="100%">{commentData.comment}</ContentStyled>
         </BalloonContainer>
         <div></div>
+
         <ButtonGrup>
           {isEdited ? (
-            <Button onClick={commentUpdateHandler}>완료</Button>
+            <Button onClick={commentUpdateHandler}>
+              <span className="material-icons-outlined">menu</span>
+            </Button>
           ) : (
-            <Button onClick={commentUpdateHandler}>수정</Button>
+            <Button onClick={commentUpdateHandler}>
+              <span className="material-icons-outlined">update</span>
+            </Button>
           )}
 
-          <Button onClick={commentDeletedHandler}>삭제</Button>
+          <Button onClick={commentDeletedHandler}>
+            <span className="material-icons-outlined">clear</span>
+          </Button>
         </ButtonGrup>
       </CommentsItemContainer>
     </>

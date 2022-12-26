@@ -5,7 +5,8 @@ import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment } from "../../redux/modules/calendarSlice";
 
-const CommentForm = ({}) => {
+const CommentForm = ({ }) => {
+  
   const dispatch = useDispatch();
 
   const [enteredName, setEnteredName] = useState("");
