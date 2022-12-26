@@ -56,6 +56,7 @@ export const CommentsItem = ({ commentData }) => {
             <ModifiedCommentForm
               commentData={commentData}
               setIsEdited={setIsEdited}
+              setShowPasswordCheckBox={setShowPasswordCheckBox}
             />
           </>
         ) : (

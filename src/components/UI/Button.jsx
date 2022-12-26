@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../../style/theme";
 
 const ButtonStyled = styled.button`
   font: inherit;
@@ -17,11 +16,21 @@ const ButtonStyled = styled.button`
     background: #1d4fba;
     border-color: #1d4fba;
   }
+  &.disabled {
+    background-color: #c1bfbf;
+    border-color: #c1bfbf;
+  }
 `;
 
 export const Button = (props) => {
   return (
-    <ButtonStyled color={props.color} type={props.type} onClick={props.onClick}>
+    <ButtonStyled
+      className={props.className}
+      disabled={props.disabled}
+      color={props.color}
+      type={props.type}
+      onClick={props.onClick}
+    >
       {props.children}
     </ButtonStyled>
   );

@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { updateComment } from "../../redux/modules/calendarSlice";
 import { Button } from "../UI/Button";
 
-const ModifiedCommentForm = ({ commentData, setIsEdited }) => {
+const ModifiedCommentForm = ({
+  commentData,
+  setIsEdited,
+  setShowPasswordCheckBox,
+}) => {
   const [enteredName, setEnteredName] = useState(commentData.name);
   const [enteredComment, setEnteredComment] = useState(commentData.comment);
 
@@ -35,6 +39,7 @@ const ModifiedCommentForm = ({ commentData, setIsEdited }) => {
     };
     dispatch(updateComment(newCommentData));
     setIsEdited(false);
+    setShowPasswordCheckBox(false);
   };
   return (
     <>
@@ -76,42 +81,6 @@ const InputStyled = styled.input`
   cursor: pointer;
   transition: background-color 300ms ease 0s;
   border: none;
-  &:hover {
-    /* background-color: #cccecf26; */
-    background: rgba(55, 53, 47, 0.06);
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-const InputCommentStyled = styled.input`
-  width: 50%;
-  background: inherit;
-  border-radius: 5px;
-  padding: 0.7rem;
-  margin: 0.7rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 300ms ease 0s;
-  &:hover {
-    /* background-color: #cccecf26; */
-    background: rgba(55, 53, 47, 0.06);
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-const InputPasswordStyled = styled.input`
-  width: 10%;
-  background: inherit;
-  border-radius: 5px;
-  padding: 0.7rem;
-  margin: 0.7rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 300ms ease 0s;
   &:hover {
     /* background-color: #cccecf26; */
     background: rgba(55, 53, 47, 0.06);
