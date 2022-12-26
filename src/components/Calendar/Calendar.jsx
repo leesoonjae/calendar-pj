@@ -20,10 +20,28 @@ export const Calendar = () => {
     dispatch(__getPosts());
   }, [dispatch]);
 
+  const handleDetail = (id, posts) => {
+    const postDetail = posts.find((opj) => opj.id === id);
+    console.log(postDetail);
+    if (postDetail) {
+      return;
+    } else {
+      alert("해당내용이 없습니다.");
+    }
+  };
+
   const renderEventContent = (eventInfo) => {
+    const tempPosts = eventInfo.event._context.options.events;
     return (
       <>
-        <Title>{eventInfo.event.title} </Title>
+        <Title
+          onClick={() => {
+            handleDetail(eventInfo.event.id, tempPosts);
+          }}
+        >
+          {eventInfo.event.title}
+          {""}
+        </Title>
         <Comment>
           <FaRegComment size="11" />
           &nbsp;
