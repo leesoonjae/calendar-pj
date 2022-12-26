@@ -7,12 +7,12 @@ import { addComment } from "../../redux/modules/calendarSlice";
 
 const CommentForm = () => {
   const dispatch = useDispatch();
-
+  // 입력값 state
   const [enteredName, setEnteredName] = useState("");
   const [enteredComment, setEnteredComment] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
 
-  // 유효성 검사
+  // 유효성 검사 state
   const [isName, setIsName] = useState(false);
   const [isComment, setIsComment] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
