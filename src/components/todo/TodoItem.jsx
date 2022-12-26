@@ -5,6 +5,8 @@ import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { __addPosts } from "../../redux/modules/calendarSlice";
 import { v4 as uuidv4 } from "uuid";
+import { produceWithPatches } from "immer";
+import { BsTrash } from "react-icons/bs";
 
 const TodoItem = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,6 @@ const TodoItem = () => {
   const [todoDateValue, setTodoDateValue] = useState("");
   const [todoContentValue, setTodoContentValue] = useState("");
   const [todoUserIdValue, setTodoUserIdValue] = useState("");
-
 
   const newTodo = {
     id: uuidv4(),
@@ -36,7 +37,6 @@ const TodoItem = () => {
   const handleContentChange = (event) => {
     setTodoContentValue(event.target.value);
   };
-
 
   const handleUserIdChange = (event) => {
     setTodoUserIdValue(event.target.value);
@@ -63,12 +63,18 @@ const TodoItem = () => {
       localStorage.removeItem("todo");
     };
   }, []);
-  // 커밋을 하자
 
   return (
     <>
       <TodoPostDeleteButtonContainer>
-        <Button onClick={handlePostDeleteButton}>삭제</Button>
+        <Button
+          onClick={handlePostDeleteButton}
+          background="transparent"
+          borderColor="transparent"
+          hoverBackground="transparent"
+        >
+          <BsTrash color="black" fontSize="1.6rem" />
+        </Button>
       </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
         placeholder="제목을 입력해주세요"
@@ -132,7 +138,7 @@ const TodoDatePicker = styled.input`
     cursor: pointer;
     background: transparent;
   }
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family: ui-sans-serif, "-apple-system, BlinkMacSystemFont", "Segoe UI",
     Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
     "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
@@ -159,12 +165,11 @@ const TodoTitleStyled = styled.input`
     content: attr(placeholder);
   }
 
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family: ui-sans-serif, "-apple-system, BlinkMacSystemFont", "Segoe UI",
     Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
     "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
 `;
-// 폰트추가
 
 const TodoDescritionStyled = styled.textarea`
   width: 100%;
@@ -181,8 +186,7 @@ const TodoDescritionStyled = styled.textarea`
     outline: none;
   }
 
-
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family: ui-sans-serif, "-apple-system, BlinkMacSystemFont", "Segoe UI",
     Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
     "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
@@ -213,7 +217,7 @@ const TodoUserNameStyled = styled.select`
     content: attr(placeholder);
   }
 
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family: ui-sans-serif, "-apple-system, BlinkMacSystemFont", "Segoe UI",
     Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
     "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
