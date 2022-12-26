@@ -19,13 +19,13 @@ export const __filteredEvents = createAsyncThunk(
           if (item.userId === payload) {
             return item;
           }
-        }
+        },
       );
       return result;
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 // 포스트 조회
@@ -96,38 +96,38 @@ const calendarSlice = createSlice({
   extraReducers: {
     // 캘린더에서 이벤트 조회
     [__filteredEvents.pending]: (state) => {
-      state.isLanding = true;
+      state.idLoading = true;
     },
     [__filteredEvents.fulfilled]: (state, action) => {
-      state.isLanding = false;
+      state.idLoading = false;
       state.posts = action.payload;
     },
     [__filteredEvents.rejected]: (state, action) => {
-      state.isLanding = false;
+      state.idLoading = false;
       state.error = action.payload;
     },
     // 포스트를 조회할 때
     [__getPosts.pending]: (state) => {
-      state.isLanding = true;
+      state.idLoading = true;
     },
     [__getPosts.fulfilled]: (state, action) => {
-      state.isLanding = false;
+      state.idLoading = false;
       state.posts = action.payload;
     },
     [__getPosts.rejected]: (state, action) => {
-      state.isLanding = false;
+      state.idLoading = false;
       state.error = action.payload;
     },
     // 포스트를 add할 때
     [__addPosts.pending]: (state) => {
-      state.isLanding = true;
+      state.idLoading = true;
     },
     [__addPosts.fulfilled]: (state, action) => {
-      state.isLanding = false;
+      state.idLoading = false;
       state.posts = action.payload;
     },
     [__addPosts.rejected]: (state, action) => {
-      state.isLanding = false;
+      state.idLoading = false;
       state.error = action.payload;
     },
   },
