@@ -45,23 +45,29 @@ export const __addComment = createAsyncThunk(
 );
 
 export const __deleteComment = createAsyncThunk(
-  "deleteComment",
+  "__deleteComment",
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
         `http://localhost:3001/posts/${payload.id}`
       );
 
-      console.log(payload.commentId);
-      // console.log(response.data.comments);
-      let data = [];
-      data = response.data.comments.filter(
+      let data = response.data.comments.filter(
         (item) => item.commentId !== payload.commentId
       );
+      console.log("1", data);
+      const updateComments = {
+        comments: [...data],
+      };
+      console.log("2", updateComments);
 
-      console.log(data);
+      await axios.patch(
+        `http://localhost:3001/posts/${payload.id}`,
+        updateComments
+      );
 
-      return thunkAPI.fulfillWithValue(data);
+      // console.log("3", deletedDate);
+      return thunkAPI.fulfillWithValue(updateComments);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -117,8 +123,8 @@ const commentSlice = createSlice({
     },
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      // console.log(action.payload);
-      // state.comments = [...action.payload]
+      console.log("받아온값", action.payload);
+      state.comments = [...action.payload.comments];
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isLoading = false;
