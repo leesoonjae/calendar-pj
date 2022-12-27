@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -79,7 +79,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   //   };
   // }, []);
 
-  
   const savePostHandler = () => {
     const newTodo = {
       id: uuidv4(),
@@ -90,10 +89,10 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       comments: [],
     };
 
-    { if(!todoUserIdValue) {
-      alert("이름을 선택해주세요")
+    if (!todoUserIdValue) {
+      alert("이름을 선택해주세요");
       return;
-    }}
+    }
 
     if (!todo) {
       dispatch(__addPost(newTodo));
@@ -109,8 +108,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
     };
     dispatch(__updatePost(updateTodo));
     hideModalHandler();
-
-
   };
 
   return (
@@ -140,11 +137,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
         type="text"
       />
 
-
-      <TodoUserNameStyled
-        onChange={handleUserIdChange}
-        value={todoUserIdValue}
-      >
+      <TodoUserNameStyled onChange={handleUserIdChange} value={todoUserIdValue}>
         <option value="">선택하세요</option>
         <option value="이순재">이순재</option>
         <option value="정하나">정하나</option>
