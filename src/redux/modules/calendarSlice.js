@@ -13,7 +13,9 @@ export const __filteredEvents = createAsyncThunk(
   "filteredEvents",
   async (payload, ThunkAPI) => {
     try {
-      const response = await axios.get("http://localhost:3001/posts");
+      const response = await axios.get(
+        "https://gentle-aquamarine-basketball.glitch.me/posts"
+      );
       const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
         (item) => {
           if (item.userId === payload) {
@@ -33,7 +35,9 @@ export const __getPosts = createAsyncThunk(
   "getPosts",
   async (payload, ThunkAPI) => {
     try {
-      const response = await axios.get("http://localhost:3001/posts");
+      const response = await axios.get(
+        "https://gentle-aquamarine-basketball.glitch.me/posts"
+      );
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -46,7 +50,10 @@ export const __addPost = createAsyncThunk(
   "addPosts",
   async (newTodo, ThunkAPI) => {
     try {
-      const response = await axios.post("http://localhost:3001/posts", newTodo);
+      const response = await axios.post(
+        "https://gentle-aquamarine-basketball.glitch.me/posts",
+        newTodo
+      );
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -60,8 +67,12 @@ export const __deletePost = createAsyncThunk(
   async (payload, ThunkAPI) => {
     console.log(payload);
     try {
-      await axios.delete(`http://localhost:3001/posts/${payload}`);
-      const response = await axios.get("http://localhost:3001/posts");
+      await axios.delete(
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload}`
+      );
+      const response = await axios.get(
+        "https://gentle-aquamarine-basketball.glitch.me/posts"
+      );
       // console.log("delete", ThunkAPI.fulfillWithValue(response.data));
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
@@ -75,7 +86,7 @@ export const __updatePost = createAsyncThunk(
   async (updateTodo, ThunkAPI) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/posts/${updateTodo.id}`,
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${updateTodo.id}`,
         updateTodo
       );
       // console.log(response.data);
@@ -122,7 +133,7 @@ const calendarSlice = createSlice({
     [__addPost.fulfilled]: (state, action) => {
       state.idLoading = false;
       console.log(current(state));
-      state.posts = [...state.posts, action.payload ];
+      state.posts = [...state.posts, action.payload];
     },
     [__addPost.rejected]: (state, action) => {
       state.idLoading = false;

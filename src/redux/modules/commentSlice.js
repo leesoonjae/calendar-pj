@@ -12,7 +12,7 @@ export const __getComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/posts/${payload}`
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload}`
       );
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
@@ -26,12 +26,12 @@ export const __addComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/posts/${payload.id}`
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload.id}`
       );
       const updateComments = { comments: [...response.data.comments, payload] };
 
       const { data } = await axios.patch(
-        `http://localhost:3001/posts/${payload.id}`,
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload.id}`,
         updateComments
       );
       console.log(data);
@@ -49,7 +49,7 @@ export const __deleteComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/posts/${payload.id}`
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload.id}`
       );
 
       let data = response.data.comments.filter(
@@ -62,7 +62,7 @@ export const __deleteComment = createAsyncThunk(
       console.log("2", updateComments);
 
       await axios.patch(
-        `http://localhost:3001/posts/${payload.id}`,
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload.id}`,
         updateComments
       );
 
@@ -80,7 +80,7 @@ export const __updateComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/posts/${payload.id}`
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload.id}`
       );
 
       let data = response.data.comments.filter(
@@ -93,7 +93,7 @@ export const __updateComment = createAsyncThunk(
       console.log("2", updateComments);
 
       await axios.patch(
-        `http://localhost:3001/posts/${payload.id}`,
+        `https://gentle-aquamarine-basketball.glitch.me/posts/${payload.id}`,
         updateComments
       );
       return thunkAPI.fulfillWithValue(updateComments);
