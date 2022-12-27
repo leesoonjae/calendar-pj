@@ -77,13 +77,8 @@ export const __updatePost = createAsyncThunk(
   async (updateTodo, ThunkAPI) => {
     try {
       const response = await axios.patch(
-<<<<<<< HEAD
-        `http://localhost:3001/posts/${newTodo.id}`,
-        newTodo
-=======
         `http://localhost:3001/posts/${updateTodo.id}`,
         updateTodo
->>>>>>> dev
       );
       // console.log(response.data);
       return ThunkAPI.fulfillWithValue(response.data);
@@ -96,9 +91,7 @@ export const __updatePost = createAsyncThunk(
 const calendarSlice = createSlice({
   name: "calendar",
   initialState,
-  reducers: {
-    
-  },
+  reducers: {},
   extraReducers: {
     // 캘린더에서 이벤트 조회
     [__filteredEvents.pending]: (state) => {

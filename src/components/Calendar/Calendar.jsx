@@ -75,23 +75,6 @@ export const Calendar = () => {
     );
   };
 
-<<<<<<< HEAD
-  // 모달
-  const [showModal, setShowModal] = useState(false);
-
-  const dateClickHandler = () => {
-    console.log("눌렀다!");
-    setShowModal(true);
-  };
-  const showModalHandler = () => {
-    setShowModal(true);
-  };
-  const hideModalHandler = () => {
-    setSeletedId("");
-    setShowModal(false);
-  };
-=======
->>>>>>> dev
   return (
     <>
       {showModal && (

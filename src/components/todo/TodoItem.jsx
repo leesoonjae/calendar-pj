@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Line } from "../UI/Line";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "../UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,21 +29,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
 
   // console.log(state);
 
-<<<<<<< HEAD
-  const [todoTitleValue, setTodoTitleValue] = useState(todo[0].title || "");
-  const [todoDateValue, setTodoDateValue] = useState(todo[0].date || "");
-  const [todoContentValue, setTodoContentValue] = useState(todo[0].desc || "");
-  const [todoUserIdValue, setTodoUserIdValue] = useState(todo[0].userId || "");
-
-  // title input창에 있는 현재 value를 받아오는 이벤트
-  // const handleTitleChange = (event) => {
-  //   const titleRegex = /^[A-Za-z0-9+]{3,}$/;
-  //   if (!event.target.value || titleRegex.test(event.target.value))
-  //     setTodoTitleError(false);
-  //   else setTodoTitleError(true);
-  //   setTodoTitleValue(event.target.value);
-  // };
-=======
   const [todoTitleValue, setTodoTitleValue] = useState(
     todo ? todo[0].title : ""
   );
@@ -56,7 +41,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   const [todoUserIdValue, setTodoUserIdValue] = useState(
     todo ? todo[0].userId : ""
   );
->>>>>>> dev
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -148,10 +132,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       />
       {/* // {todoTitleError && <span>제목을 3글자 이상 적어주세요</span>} */}
 
-      <TodoUserNameStyled
-        onClick={handleUserIdChange}
-        value={todoUserIdValue}
-      >
+      <TodoUserNameStyled onClick={handleUserIdChange} value={todoUserIdValue}>
         <option value="이순재">이순재</option>
         <option value="정하나">정하나</option>
         <option value="변시윤">변시윤</option>
