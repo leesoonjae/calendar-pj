@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { __updateComment } from "../../redux/modules/commentSlice";
+import { updateComment } from "../../redux/modules/calendarSlice";
 import { Button } from "../UI/Button";
 
 const ModifiedCommentForm = ({
@@ -37,7 +37,7 @@ const ModifiedCommentForm = ({
       comment: enteredComment,
       date: new Date().toISOString.toString(),
     };
-    dispatch(__updateComment(newCommentData));
+    dispatch(updateComment(newCommentData));
     setIsEdited(false);
     setShowPasswordCheckBox(false);
   };
@@ -89,3 +89,4 @@ const InputStyled = styled.input`
     outline: none;
   }
 `;
+// 하하
