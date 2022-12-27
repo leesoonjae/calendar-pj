@@ -41,7 +41,7 @@ export const Calendar = () => {
   // 글 작성 모달
   const [addPost, setAddPost] = useState(false);
   const addPostHandler = () => {
-    // console.log(e.event._instance.range.start);
+    // console.log(e.event._instance.range.start); 날짜 정보
     setAddPost(true);
   };
   const hideModalHandler = () => {
@@ -73,6 +73,7 @@ export const Calendar = () => {
         {readPost && (
           <Modal onClick={hideEventHandler}>{<ReadPostForm />}</Modal>
         )}
+        {/* 달력 라이브러리 */}
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
