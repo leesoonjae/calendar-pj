@@ -4,7 +4,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import styled from "styled-components";
-import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
 import { CalenderForm } from "./CalenderForm";
 import { FaRegComment } from "react-icons/fa";
@@ -12,24 +11,23 @@ import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
 
 export const Calendar = () => {
-  // 이벤트 데이터
-  const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  // 투두리스트 데이터
+  const { posts, error } = useSelector((state) => state.calendar);
+
   const [selectedId, setselectedId] = useState("");
   const [seletedDate, setSeletedDate] = useState("");
 
-  //새로운 빈 데이터 생성
-
   const dispatch = useDispatch();
 
-  // 데이터 서버에서 불러옴
+  // calendarSlice에서 불러옴
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
+  // 투두리스트 본문 조회
   const handleDetail = (id, posts) => {
     const postDetail = posts.find((opj) => opj.id === id);
     setselectedId(id);
-    // console.log(postDetail);
     if (postDetail) {
       return;
     } else {
@@ -40,40 +38,48 @@ export const Calendar = () => {
   // 모달
   const [showModal, setShowModal] = useState(false);
 
+  // 날짜칸 클릭시
   const dateClickHandler = (e) => {
     setSeletedDate(e.dateStr);
     setShowModal(true);
   };
+  // 투두리스트 클릭시
   const showModalHandler = (e) => {
     setShowModal(true);
-    // window.history.pushState(null, null, `${e.event._def.publicId}`);
+    window.history.pushState(null, null, `${e.event._def.publicId}`);
   };
   const hideModalHandler = () => {
     setselectedId("");
     setShowModal(false);
+    window.history.pushState(null, null, "/");
   };
 
   const renderEventContent = (eventInfo) => {
     const tempPosts = eventInfo.event._context.options.events;
+    const commentCount = eventInfo.event._def.extendedProps.comments.length;
 
     return (
-      <>
-        <Title
-          onClick={() => {
-            handleDetail(eventInfo.event.id, tempPosts);
-          }}
-        >
+      <div
+        onClick={() => {
+          handleDetail(eventInfo.event.id, tempPosts);
+        }}
+      >
+        <Title>
           {eventInfo.event.title}
           {""}
         </Title>
         <Comment>
-          <FaRegComment size="11" />
+          {commentCount > 0 ? <FaRegComment size="11" /> : null}
           &nbsp;
-          {eventInfo.event._def.extendedProps.comment}
+          {commentCount > 0 ? commentCount : null}
         </Comment>
-      </>
+      </div>
     );
   };
+
+  if (error) {
+    alert(error.message);
+  }
 
   return (
     <>
@@ -89,7 +95,6 @@ export const Calendar = () => {
         </Modal>
       )}
       <CalendarContainer>
-        <Button onClick={showModalHandler}>New</Button>
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -114,7 +119,6 @@ const CalendarContainer = styled.div`
   height: 100%;
   align-items: center;
   padding: 2rem;
-  margin-top: 8rem;
 `;
 
 const Title = styled.span`

@@ -1,3 +1,9 @@
+:root {
+  --fc-today-bg-color: rgb(252, 252, 245);
+  --fc-event-bg-color: #f6f6f6;
+  --fc-event-border-color: #e9e7e7;
+}
+
 /* today 버튼 */
 .fc .fc-button-primary,
 .fc .fc-button-primary:disabled {
@@ -37,11 +43,6 @@
   font-weight: bold;
 }
 
-/* 오늘 */
-:root {
-  --fc-today-bg-color: rgb(252, 252, 245);
-}
-
 .fc-day-today {
   background-color: var(--fc-today-bg-color);
 }
@@ -67,8 +68,8 @@
   box-shadow: 0.1rem 0.1rem 0.2rem #dbdbdb;
   border: #f6f6f6;
   border-radius: 0.3rem;
-  background-color: #f6f6f6;
+  background-color: var(--fc-event-bg-color);
 }
 .fc-event:hover {
-  background-color: #e9e7e7;
+  background-color: var(--fc-event-border-color);
 }
