@@ -22,10 +22,6 @@ export const Calendar = () => {
   }, [dispatch]);
 
   const handleDetail = (id, posts) => {
-    // const find = posts.filter((item) => item.id === e.target.id);
-    // console.log(posts);
-    // console.log(find);
-    // console.log(posts);
     const postDetail = posts.find((opj) => opj.id === id);
     console.log(postDetail);
     if (postDetail) {
