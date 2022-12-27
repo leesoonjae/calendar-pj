@@ -8,12 +8,24 @@ import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
 import { CalenderForm } from "./CalenderForm";
 import { FaRegComment } from "react-icons/fa";
-import { __getPosts } from "../../redux/modules/calendarSlice";
+import { __addPost, __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
+import { v4 as uuidv4 } from "uuid";
 
 export const Calendar = () => {
   // 이벤트 데이터
   const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  const [seletedId, setSeletedId] = useState("");
+
+  //새로운 빈 데이터 생성
+  const createTodo = {
+    id: uuidv4(),
+    title: "",
+    userId: "",
+    date: "",
+    desc: "",
+  };
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,6 +34,7 @@ export const Calendar = () => {
 
   const handleDetail = (id, posts) => {
     const postDetail = posts.find((opj) => opj.id === id);
+    setSeletedId(id);
     console.log(postDetail);
     if (postDetail) {
       return;
@@ -32,6 +45,7 @@ export const Calendar = () => {
 
   const renderEventContent = (eventInfo) => {
     const tempPosts = eventInfo.event._context.options.events;
+
     return (
       <>
         <Title
@@ -53,17 +67,25 @@ export const Calendar = () => {
 
   // 모달
   const [showModal, setShowModal] = useState(false);
+
+  const dateClickHandler = () => {
+    console.log("눌렀다!");
+    setShowModal(true);
+  };
   const showModalHandler = () => {
     setShowModal(true);
   };
   const hideModalHandler = () => {
+    setSeletedId("");
     setShowModal(false);
   };
 
   return (
     <>
       {showModal && (
-        <Modal onClick={hideModalHandler}>{<CalenderForm />}</Modal>
+        <Modal onClick={hideModalHandler}>
+          {<CalenderForm seletedId={seletedId} />}
+        </Modal>
       )}
       <CalendarContainer>
         <Button onClick={showModalHandler}>이벤트 추가</Button>
@@ -73,7 +95,7 @@ export const Calendar = () => {
           events={posts}
           eventContent={renderEventContent}
           eventClick={showModalHandler}
-          dateClick={showModalHandler}
+          dateClick={dateClickHandler}
           editable={true}
           eventTextColor="initial"
         />
