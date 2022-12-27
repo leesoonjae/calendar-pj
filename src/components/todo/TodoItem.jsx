@@ -88,6 +88,14 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       desc: todoContentValue,
       comments: [],
     };
+
+    {
+      if (!todoUserIdValue) {
+        alert("이름을 선택해주세요");
+        return;
+      }
+    }
+
     if (!todo) {
       alert("저장 하시겠습니까?");
       dispatch(__addPost(newTodo));
@@ -133,8 +141,8 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       />
       {/* // {todoTitleError && <span>제목을 3글자 이상 적어주세요</span>} */}
 
-      <TodoUserNameStyled onClick={handleUserIdChange} value={todoUserIdValue}>
-        <option value=""></option>
+      <TodoUserNameStyled onChange={handleUserIdChange} value={todoUserIdValue}>
+        <option value="">선택하세요</option>
         <option value="이순재">이순재</option>
         <option value="정하나">정하나</option>
         <option value="변시윤">변시윤</option>
