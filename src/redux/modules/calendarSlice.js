@@ -96,7 +96,7 @@ const calendarSlice = createSlice({
       const selectedPost = state.post.filter(
         (item) => item.Id === action.payload.Id
       );
-    
+
       selectedPost[0].comments.push(action.payload);
     },
     removeComment: (state, action) => {
@@ -197,8 +197,6 @@ export const { addPost, deletePost, addComment, removeComment, updateComment } =
 
 export default calendarSlice.reducer;
 
-
-
 // 초기 상태 값(initialState)
 // const initialState = {
 //   post: [
@@ -220,5 +218,3 @@ export default calendarSlice.reducer;
 //     },
 //   ],
 // };
-
-

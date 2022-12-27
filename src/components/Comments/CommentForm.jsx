@@ -1,11 +1,11 @@
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
 import { addComment } from "../../redux/modules/calendarSlice";
 
-const CommentForm = () => {
+const CommentForm = ({ selectedId }) => {
   const dispatch = useDispatch();
   // 입력값 state
   const [enteredName, setEnteredName] = useState("");
@@ -59,8 +59,8 @@ const CommentForm = () => {
     e.preventDefault();
 
     const commentData = {
-      Id: "1203004",
-      commentId: v4(),
+      Id: selectedId,
+      commentId: uuidv4(),
       name: enteredName,
       password: enteredPassword,
       comment: enteredComment,

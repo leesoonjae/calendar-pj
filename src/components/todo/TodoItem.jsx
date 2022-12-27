@@ -40,7 +40,6 @@ const TodoItem = ({ seletedId, hideModalHandler, seletedDate }) => {
   const [todoUserIdValue, setTodoUserIdValue] = useState(
     todo ? todo[0].userId : ""
   );
-  
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -86,6 +85,7 @@ const TodoItem = ({ seletedId, hideModalHandler, seletedDate }) => {
       userId: todoUserIdValue,
       date: todoDateValue,
       desc: todoContentValue,
+      comments: [],
     };
     if (!todo) {
       dispatch(__addPost(newTodo));

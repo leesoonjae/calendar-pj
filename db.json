@@ -5,42 +5,8 @@
       "title": "1231",
       "userId": "이순재",
       "date": "2022-12-09",
-      "desc": "하하하"
-    },
-    {
-      "id": "925321ff-ce08-4ca0-9bc7-4d3d3fbc0326",
-      "title": "임시233",
-      "userId": "이순재",
-      "date": "2022-12-09",
-      "desc": "하하하123"
-    },
-    {
-      "id": "4433b9fd-fbbf-427c-acff-ccd59519abac",
-      "title": "test123",
-      "userId": "",
-      "date": "2022-12-08",
-      "desc": "1234"
-    },
-    {
-      "id": "7d8bbe5a-13da-4a25-b0b4-53ef927038a8",
-      "title": "바꿔",
-      "userId": "",
-      "date": "2022-12-07",
-      "desc": "4124123"
-    },
-    {
-      "id": "d589e255-9a73-4c60-8ceb-a5ae56e4c8be",
-      "title": "1234",
-      "userId": "",
-      "date": "",
-      "desc": ""
-    },
-    {
-      "id": "a82221d3-d7c1-43f9-99b0-fe6434a18361",
-      "title": "123",
-      "userId": "",
-      "date": "2022-12-06",
-      "desc": ""
+      "desc": "하하하",
+      "comments": []
     }
   ]
 }
