@@ -88,5 +88,4 @@ const InputStyled = styled.input`
   &:focus {
     outline: none;
   }
-`; 
-//잠깐 테스트 중 삭제해도 됨
+`;

@@ -24,8 +24,8 @@ export const CalenderForm = ({ seletedId, hideModalHandler, seletedDate }) => {
           seletedDate={seletedDate}
         />
         <Line px="32px" />
-        <CommentsList />
-        <CommentForm />
+        <CommentsList seletedId={seletedId} />
+        <CommentForm seletedId={seletedId} />
         <Line px="0px" />
       </TodoTitleContainer>
     </>
