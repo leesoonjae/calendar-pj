@@ -45,8 +45,9 @@ export const Calendar = () => {
     setSeletedDate(e.dateStr);
     setShowModal(true);
   };
-  const showModalHandler = () => {
+  const showModalHandler = (e) => {
     setShowModal(true);
+    window.history.pushState(null, null, `${e.event._def.publicId}`);
   };
   const hideModalHandler = () => {
     setselectedId("");
@@ -95,7 +96,7 @@ export const Calendar = () => {
           initialView="dayGridMonth"
           events={posts}
           eventContent={renderEventContent}
-          eventClick={showModalHandler}
+          eventClick={(e) => showModalHandler(e)}
           dateClick={dateClickHandler}
           editable={true}
           eventTextColor="initial"

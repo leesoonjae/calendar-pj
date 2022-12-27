@@ -18,7 +18,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const todos = useSelector((state) => state.calendar.posts);
-  // console.log(todos);
+  console.log("todos", todos);
 
   if (selectedId !== "") {
     todo = todos.filter((todo) => todo.id === selectedId);
@@ -139,6 +139,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
         value={todoTitleValue}
         type="text"
       />
+
 
       <TodoUserNameStyled
         onChange={handleUserIdChange}
@@ -276,3 +277,4 @@ const TodoUserNameStyled = styled.select`
 `;
 // test용 주석
 export default TodoItem;
+// 머지

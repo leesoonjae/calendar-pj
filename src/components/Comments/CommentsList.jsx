@@ -1,29 +1,35 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import { CommentsItem } from "./CommentsItem";
+import { __getComment } from "../../redux/modules/commentSlice";
 
 const CommentsList = ({ selectedId }) => {
-  // 1. 선택한 페이지 id 값에 맞는 데이터 필터링하기
+  const { comments, isLoading, error } = useSelector(
+    (state) => state.comment.comments
+  );
+  const dispatch = useDispatch();
 
-  const commentsData = useSelector((state) => state.comment.comments);
+  useEffect(() => {
+    dispatch(__getComment(selectedId));
+  }, []);
 
-
-  // console.log(commentsData);
-  // const selectedPost = calendarData.filter((item) => item.id === selectedId);
-  // console.log(selectedPost, selectedId);
-  // const commentsArr = selectedPost[0].comments;
-  
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+  if (error) {
+    return <>{error.message}</>;
+  }
 
   return (
     <div>
-      {commentsData.map((comment) => (
-        <CommentsItem
-          commentData={comment}
-          key={comment.commentId}
-          selectedId={selectedId}
-        />
-      ))}
+      {comments &&
+        comments.map((comment) => (
+          <CommentsItem
+            commentData={comment}
+            key={comment.commentId}
+            selectedId={selectedId}
+          />
+        ))}
     </div>
   );
 };
