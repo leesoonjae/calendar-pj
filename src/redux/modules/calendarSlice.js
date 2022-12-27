@@ -7,7 +7,7 @@ const initialState = {
   idLoading: false,
   error: null,
 };
-
+//1
 // 푸터 팀원 이벤트 필터링
 export const __filteredEvents = createAsyncThunk(
   "filteredEvents",
@@ -80,7 +80,7 @@ export const __updatePost = createAsyncThunk(
         `http://localhost:3001/posts/${updateTodo.id}`,
         updateTodo
       );
-      console.log(response.data);
+      // console.log(response.data);
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -91,38 +91,7 @@ export const __updatePost = createAsyncThunk(
 const calendarSlice = createSlice({
   name: "calendar",
   initialState,
-  reducers: {
-    addComment: (state, action) => {
-      const selectedPost = state.post.filter(
-        (item) => item.Id === action.payload.Id
-      );
-
-      selectedPost[0].comments.push(action.payload);
-    },
-    removeComment: (state, action) => {
-      const { Id, commentId } = action.payload;
-
-      const selectedPost = state.post.filter((item) => item.Id === Id);
-      // console.log(current(state.post[0].comments));
-      // console.log(current(state));
-      const commentIdx = selectedPost[0].comments.findIndex(
-        (item) => item.commentId === commentId
-      );
-      // console.log(commentIdx);
-      selectedPost[0].comments.splice(commentIdx, 1);
-    },
-    updateComment: (state, action) => {
-      const { Id, commentId } = action.payload;
-
-      // 1. 수정할 댓글 객체를 찾는다.
-      const selectedPost = state.post.filter((item) => item.Id === Id);
-      const commentIdx = selectedPost[0].comments.findIndex(
-        (item) => item.commentId === commentId
-      );
-      selectedPost[0].comments[commentIdx] = { ...action.payload };
-      // 2. 해당 댓글객체를 업데이트 시킨다.
-    },
-  },
+  reducers: {},
   extraReducers: {
     // 캘린더에서 이벤트 조회
     [__filteredEvents.pending]: (state) => {

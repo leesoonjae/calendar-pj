@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 export const Calendar = () => {
   // 이벤트 데이터
   const { posts, isLoading, error } = useSelector((state) => state.calendar);
-  const [seletedId, setSeletedId] = useState("");
+  const [selectedId, setselectedId] = useState("");
   const [seletedDate, setSeletedDate] = useState("");
 
   //새로운 빈 데이터 생성
@@ -29,8 +29,8 @@ export const Calendar = () => {
 
   const handleDetail = (id, posts) => {
     const postDetail = posts.find((opj) => opj.id === id);
-    setSeletedId(id);
-    console.log(postDetail);
+    setselectedId(id);
+    // console.log(postDetail);
     if (postDetail) {
       return;
     } else {
@@ -49,7 +49,7 @@ export const Calendar = () => {
     setShowModal(true);
   };
   const hideModalHandler = () => {
-    setSeletedId("");
+    setselectedId("");
     setShowModal(false);
   };
 
@@ -81,7 +81,7 @@ export const Calendar = () => {
         <Modal onClick={hideModalHandler}>
           {
             <CalenderForm
-              seletedId={seletedId}
+              selectedId={selectedId}
               hideModalHandler={hideModalHandler}
               seletedDate={seletedDate}
             />
