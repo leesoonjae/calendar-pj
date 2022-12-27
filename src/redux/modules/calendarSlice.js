@@ -4,6 +4,7 @@ import axios from "axios";
 // // 초기 상태 값(initialState)
 const initialState = {
   posts: [],
+  post: "",
   idLoading: false,
   error: null,
 };
@@ -35,26 +36,6 @@ export const __getPosts = createAsyncThunk(
     try {
       const response = await axios.get("http://localhost:3001/posts");
       return ThunkAPI.fulfillWithValue(response.data);
-    } catch (error) {
-      return ThunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const __readPost = createAsyncThunk(
-  "readPost",
-  async (payload, ThunkAPI) => {
-    try {
-      const response = await axios.get("http://localhost:3001/posts");
-      const result = ThunkAPI.fulfillWithValue(response.data).payload.filter(
-        (item) => {
-          if (item.id === payload) {
-            return item;
-          }
-        }
-      );
-      // console.log("__readPost의 return: ", result);
-      return result;
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
@@ -131,19 +112,6 @@ const calendarSlice = createSlice({
       state.posts = action.payload;
     },
     [__getPosts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    // 포스트 조회
-    [__readPost.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__readPost.fulfilled]: (state, action) => {
-      // console.log("__readPost.fulfilled의 action.payload: ", action.payload);
-      state.isLoading = false;
-      state.posts = action.payload;
-    },
-    [__readPost.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -9,21 +8,19 @@ import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
 import { AddPostForm, ReadPostForm } from "./CalendarForm";
 import { FaRegComment } from "react-icons/fa";
-import { __getPosts, __readPost } from "../../redux/modules/calendarSlice";
+import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
 
 export const Calendar = () => {
   // 이벤트 데이터
   const { posts, error } = useSelector((state) => state.calendar);
-
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
-  //  이벤트 정보 커스텀
+  //  이벤트 정보 커스텀(타이틀, 코멘트수)
   const renderEventContent = (eventInfo) => {
     return (
       <>
@@ -55,12 +52,13 @@ export const Calendar = () => {
   const [readPost, setReadPost] = useState(false);
   const readPostHandler = (e) => {
     setReadPost(true);
-    navigate(`/${e.event._def.publicId}`);
-    dispatch(__readPost(e.event._def.publicId));
+    dispatch(__getPosts(e.event._def.publicId));
+    window.history.pushState(null, null, `${e.event._def.publicId}`);
   };
   const hideEventHandler = () => {
     setReadPost(false);
     dispatch(__getPosts());
+    window.history.pushState(null, null, "/");
   };
 
   if (error) {
@@ -71,6 +69,10 @@ export const Calendar = () => {
     <>
       <CalendarContainer>
         <Button onClick={addPostHandler}>이벤트 추가</Button>
+        {addPost && <Modal onClick={hideModalHandler}>{<AddPostForm />}</Modal>}
+        {readPost && (
+          <Modal onClick={hideEventHandler}>{<ReadPostForm />}</Modal>
+        )}
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
@@ -81,10 +83,6 @@ export const Calendar = () => {
           editable={true}
           eventTextColor="initial"
         />
-        {addPost && <Modal onClick={hideModalHandler}>{<AddPostForm />}</Modal>}
-        {readPost && (
-          <Modal onClick={hideEventHandler}>{<ReadPostForm />}</Modal>
-        )}
       </CalendarContainer>
     </>
   );
@@ -100,16 +98,17 @@ const CalendarContainer = styled.div`
   padding: 2rem;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
   display: block;
-  width: 78%;
+  width: 88%;
   overflow: hidden;
   text-overflow: ellipsis;
   font-style: normal;
   font-weight: bold;
+  margin-right: 0;
 `;
 
-const Comment = styled.span`
+const Comment = styled.div`
   font-weight: normal;
   float: right;
   margin-top: -1rem;
