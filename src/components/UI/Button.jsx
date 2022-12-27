@@ -1,19 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Button = (props) => {
-  return (
-    <ButtonStyled
-      type={props.type}
-      onClick={props.onClick}
-      background={props.background}
-      borderColor={props.borderColor}
-      hoverBackground={props.hoverBackground}
-    >
-      {props.children}
-    </ButtonStyled>
-  );
-};
+
 const ButtonStyled = styled.button`
   font: inherit;
   margin: 1rem;
@@ -30,5 +18,33 @@ const ButtonStyled = styled.button`
   &:active {
     background: ${(props) => props.hoverBackground || "#1d4fba"};
     /* border: 1px solid ${(props) => props.borderColor || "#1d4fba"}; */
+     /* background: #1d4fba;
+    border-color: #1d4fba; */
+  }
+  &.disabled {
+    background-color: #c1bfbf;
+    border-color: #c1bfbf;
+  }
+  &.disabled {
+    background-color: #c1bfbf;
+    border-color: #c1bfbf;
   }
 `;
+
+export const Button = (props) => {
+  return (
+    <ButtonStyled
+      className={props.className}
+      disabled={props.disabled}
+      color={props.color}
+      type={props.type}
+      onClick={props.onClick}
+       background={props.background}
+      borderColor={props.borderColor}
+      hoverBackground={props.hoverBackground}
+    >
+      {props.children}
+    </ButtonStyled>
+  );
+};
+
