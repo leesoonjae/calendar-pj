@@ -44,39 +44,58 @@ export const __addComment = createAsyncThunk(
 );
 
 export const __deleteComment = createAsyncThunk(
-  "deleteComment",
+  "__deleteComment",
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get(
         `http://localhost:3001/posts/${payload.id}`
       );
 
-      console.log(payload.commentId);
-      // console.log(response.data.comments);
-      let data = [];
-      data = response.data.comments.filter(
+      let data = response.data.comments.filter(
         (item) => item.commentId !== payload.commentId
       );
+      console.log("1", data);
+      const updateComments = {
+        comments: [...data],
+      };
+      console.log("2", updateComments);
 
-      console.log(data);
+      await axios.patch(
+        `http://localhost:3001/posts/${payload.id}`,
+        updateComments
+      );
 
-      return thunkAPI.fulfillWithValue(data);
+      // console.log("3", deletedDate);
+      return thunkAPI.fulfillWithValue(updateComments);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
+// 업데이트
 export const __updateComment = createAsyncThunk(
   "updateComment",
   async (payload, thunkAPI) => {
     try {
-      // console.log('update 페이로드: ', payload);
-      await axios.patch(`http://localhost:3003/posts/${payload}`, payload);
-      const response = await axios.get("http://localhost:3003/comment");
-      // console.log('update 이벤트의 서버 응답: ', data.data);
+      const response = await axios.get(
+        `http://localhost:3001/posts/${payload.id}`
+      );
 
-      return thunkAPI.fulfillWithValue(response.data);
+      let data = response.data.comments.filter(
+        (item) => item.commentId !== payload.commentId
+      );
+      console.log("1", data);
+      const updateComments = {
+        comments: [...data, payload],
+      };
+      console.log("2", updateComments);
+
+      await axios.patch(
+        `http://localhost:3001/posts/${payload.id}`,
+        updateComments
+      );
+      return thunkAPI.fulfillWithValue(updateComments);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -116,8 +135,8 @@ const commentSlice = createSlice({
     },
     [__deleteComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      // console.log(action.payload);
-      // state.comments = [...action.payload]
+      console.log("받아온값");
+      state.comments = [...action.payload.comments];
     },
     [__deleteComment.rejected]: (state, action) => {
       state.isLoading = false;
@@ -128,7 +147,9 @@ const commentSlice = createSlice({
     },
     [__updateComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      console.log("업데이트 성공 ");
+      state.comments = [...action.payload.comments];
+      // state.comments = action.payload;
     },
     [__updateComment.rejected]: (state, action) => {
       state.isLoading = false;

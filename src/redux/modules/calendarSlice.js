@@ -7,7 +7,7 @@ const initialState = {
   idLoading: false,
   error: null,
 };
-
+//1
 // 푸터 팀원 이벤트 필터링
 export const __filteredEvents = createAsyncThunk(
   "filteredEvents",
@@ -91,9 +91,7 @@ export const __updatePost = createAsyncThunk(
 const calendarSlice = createSlice({
   name: "calendar",
   initialState,
-  reducers: {
-    
-  },
+  reducers: {},
   extraReducers: {
     // 캘린더에서 이벤트 조회
     [__filteredEvents.pending]: (state) => {

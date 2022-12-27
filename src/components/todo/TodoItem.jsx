@@ -79,6 +79,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   //   };
   // }, []);
 
+  
   const savePostHandler = () => {
     const newTodo = {
       id: uuidv4(),
@@ -88,6 +89,12 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       desc: todoContentValue,
       comments: [],
     };
+
+    { if(!todoUserIdValue) {
+      alert("이름을 선택해주세요")
+      return;
+    }}
+
     if (!todo) {
       dispatch(__addPost(newTodo));
       hideModalHandler();
@@ -102,6 +109,8 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
     };
     dispatch(__updatePost(updateTodo));
     hideModalHandler();
+
+
   };
 
   return (
@@ -131,7 +140,12 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
         type="text"
       />
 
-      <TodoUserNameStyled onClick={handleUserIdChange} value={todoUserIdValue}>
+
+      <TodoUserNameStyled
+        onChange={handleUserIdChange}
+        value={todoUserIdValue}
+      >
+        <option value="">선택하세요</option>
         <option value="이순재">이순재</option>
         <option value="정하나">정하나</option>
         <option value="변시윤">변시윤</option>
@@ -261,5 +275,5 @@ const TodoUserNameStyled = styled.select`
     "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
 `;
-
+// test용 주석
 export default TodoItem;
