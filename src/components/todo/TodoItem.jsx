@@ -24,11 +24,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
     todo = todos.filter((todo) => todo.id === selectedId);
   }
 
-  // console.log(selectedId);
-  // console.log(todo);
-
-  // console.log(state);
-
   const [todoTitleValue, setTodoTitleValue] = useState(
     todo ? todo[0].title : ""
   );
@@ -117,20 +112,20 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
     <>
       <TodoPostDeleteButtonContainer>
         <Button
-          onClick={handlePostDeleteButton}
-          background="transparent"
-          borderColor="transparent"
-          hoverBackground="transparent"
-        >
-          <BsTrash color="black" fontSize="1.6rem" />
-        </Button>
-        <Button
           background="transparent"
           borderColor="transparent"
           hoverBackground="transparent"
           onClick={savePostHandler}
         >
           <BsFillCheckCircleFill color="black" fontSize="1.6rem" />
+        </Button>
+        <Button
+          onClick={handlePostDeleteButton}
+          background="transparent"
+          borderColor="transparent"
+          hoverBackground="transparent"
+        >
+          <BsTrash color="black" fontSize="1.6rem" />
         </Button>
       </TodoPostDeleteButtonContainer>
       <TodoTitleStyled
@@ -243,8 +238,11 @@ const TodoDescritionStyled = styled.textarea`
 `;
 
 const TodoPostDeleteButtonContainer = styled.div`
+  position: relative;
+  right: -2rem;
   display: flex;
   justify-content: end;
+  box-sizing: border-box;
 `;
 
 const TodoUserNameStyled = styled.select`
