@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // // 초기 상태 값(initialState)
@@ -46,9 +46,7 @@ export const __addPost = createAsyncThunk(
   "addPosts",
   async (newTodo, ThunkAPI) => {
     try {
-      await axios.post("http://localhost:3001/posts", newTodo);
-
-      const response = await axios.get("http://localhost:3001/posts");
+      const response = await axios.post("http://localhost:3001/posts", newTodo);
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -123,7 +121,8 @@ const calendarSlice = createSlice({
     },
     [__addPost.fulfilled]: (state, action) => {
       state.idLoading = false;
-      state.posts = action.payload;
+      console.log(current(state));
+      state.posts = [...state.posts, action.payload ];
     },
     [__addPost.rejected]: (state, action) => {
       state.idLoading = false;

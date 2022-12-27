@@ -4,9 +4,7 @@ import { CommentsItem } from "./CommentsItem";
 import { __getComment } from "../../redux/modules/commentSlice";
 
 const CommentsList = ({ selectedId }) => {
-  const { comments, isLoading, error } = useSelector(
-    (state) => state.comment.comments
-  );
+  const { comments, isLoading, error } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,6 +17,7 @@ const CommentsList = ({ selectedId }) => {
   if (error) {
     return <>{error.message}</>;
   }
+  console.log(comments);
 
   return (
     <div>

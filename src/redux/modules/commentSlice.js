@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -29,11 +29,12 @@ export const __addComment = createAsyncThunk(
         `http://localhost:3001/posts/${payload.id}`
       );
       const updateComments = { comments: [...response.data.comments, payload] };
+
       const { data } = await axios.patch(
         `http://localhost:3001/posts/${payload.id}`,
         updateComments
       );
-      // console.log(data);
+      console.log(data);
 
       // get 에서 뽑아낸 데이터 조회 중
       return thunkAPI.fulfillWithValue(data);
@@ -112,7 +113,7 @@ const commentSlice = createSlice({
     },
     [__getComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.comments = [...action.payload.comments];
     },
     [__getComment.rejected]: (state, action) => {
       state.isLoading = false;
@@ -123,7 +124,8 @@ const commentSlice = createSlice({
     },
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-
+      console.log(action.payload.comments);
+      console.log(current(state));
       state.comments = [...action.payload.comments];
     },
     [__addComment.rejected]: (state, action) => {

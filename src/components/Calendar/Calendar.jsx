@@ -47,7 +47,7 @@ export const Calendar = () => {
   };
   const showModalHandler = (e) => {
     setShowModal(true);
-    window.history.pushState(null, null, `${e.event._def.publicId}`);
+    // window.history.pushState(null, null, `${e.event._def.publicId}`);
   };
   const hideModalHandler = () => {
     setselectedId("");

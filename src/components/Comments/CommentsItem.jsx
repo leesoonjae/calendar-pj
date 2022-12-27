@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
-import { __deleteComment } from "../../redux/modules/commentSlice";
+import {
+  __deleteComment,
+
+} from "../../redux/modules/commentSlice";
 import ModifiedCommentForm from "./ModifiedCommentForm";
 
 export const CommentsItem = ({ commentData, selectedId }) => {
@@ -10,10 +13,8 @@ export const CommentsItem = ({ commentData, selectedId }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [enterdPassword, setEnterdPassword] = useState();
 
- 
   const dispatch = useDispatch();
 
- 
   const commentUpdateHandler = () => {
     setShowPasswordCheckBox(true);
 
@@ -38,6 +39,7 @@ export const CommentsItem = ({ commentData, selectedId }) => {
     dispatch(
       __deleteComment({ id: commentData.id, commentId: commentData.commentId })
     );
+
   };
 
   return (

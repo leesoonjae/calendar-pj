@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { updateComment } from "../../redux/modules/calendarSlice";
+import {
+
+  __updateComment,
+} from "../../redux/modules/commentSlice";
 import { Button } from "../UI/Button";
 
 const ModifiedCommentForm = ({
@@ -36,7 +39,7 @@ const ModifiedCommentForm = ({
       comment: enteredComment,
       date: new Date().toISOString.toString(),
     };
-    dispatch(updateComment(newCommentData));
+    dispatch(__updateComment(newCommentData));
     setIsEdited(false);
     setShowPasswordCheckBox(false);
   };
