@@ -18,7 +18,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const todos = useSelector((state) => state.calendar.posts);
-  // console.log(todos);
+  console.log("todos", todos);
 
   if (selectedId !== "") {
     todo = todos.filter((todo) => todo.id === selectedId);
@@ -131,10 +131,7 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
         type="text"
       />
 
-      <TodoUserNameStyled
-        onClick={handleUserIdChange}
-        value={todoUserIdValue}
-      >
+      <TodoUserNameStyled onClick={handleUserIdChange} value={todoUserIdValue}>
         <option value="이순재">이순재</option>
         <option value="정하나">정하나</option>
         <option value="변시윤">변시윤</option>
