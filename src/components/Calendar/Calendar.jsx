@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
-import { CalenderForm } from "./CalenderForm";
+import { CalendarForm } from "./CalendarForm";
 import { FaRegComment } from "react-icons/fa";
 import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
@@ -19,9 +19,9 @@ export const Calendar = () => {
   const [seletedDate, setSeletedDate] = useState("");
 
   //새로운 빈 데이터 생성
-
   const dispatch = useDispatch();
 
+  // 데이터 서버에서 불러옴
   // 데이터 서버에서 불러옴
   useEffect(() => {
     dispatch(__getPosts());
@@ -30,7 +30,6 @@ export const Calendar = () => {
   const handleDetail = (id, posts) => {
     const postDetail = posts.find((opj) => opj.id === id);
     setselectedId(id);
-    // console.log(postDetail);
     if (postDetail) {
       return;
     } else {
@@ -47,23 +46,26 @@ export const Calendar = () => {
   };
   const showModalHandler = (e) => {
     setShowModal(true);
-    // window.history.pushState(null, null, `${e.event._def.publicId}`);
+    window.history.pushState(null, null, `${e.event._def.publicId}`);
   };
   const hideModalHandler = () => {
     setselectedId("");
     setShowModal(false);
+    window.history.pushState(null, null, "/");
   };
 
   const renderEventContent = (eventInfo) => {
     const tempPosts = eventInfo.event._context.options.events;
 
+    const tempPosts = eventInfo.event._context.options.events;
+
     return (
-      <>
-        <Title
-          onClick={() => {
-            handleDetail(eventInfo.event.id, tempPosts);
-          }}
-        >
+      <div
+        onClick={() => {
+          handleDetail(eventInfo.event.id, tempPosts);
+        }}
+      >
+        <Title>
           {eventInfo.event.title}
           {""}
         </Title>
@@ -72,22 +74,39 @@ export const Calendar = () => {
           &nbsp;
           {eventInfo.event._def.extendedProps.comment}
         </Comment>
-      </>
+      </div>
     );
   };
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+  if (error) {
+    return <>{error.message}</>;
+  }
 
   return (
     <>
       {showModal && (
-        <Modal onClick={hideModalHandler}>
-          {
-            <CalenderForm
-              selectedId={selectedId}
-              hideModalHandler={hideModalHandler}
-              seletedDate={seletedDate}
-            />
-          }
-        </Modal>
+        <>
+          <Modal onClick={hideModalHandler}>
+            {
+              <CalendarForm
+                selectedId={selectedId}
+                hideModalHandler={hideModalHandler}
+                seletedDate={seletedDate}
+              />
+            }
+          </Modal>
+          <Modal onClick={hideModalHandler}>
+            {
+              <CalenderForm
+                selectedId={selectedId}
+                hideModalHandler={hideModalHandler}
+                seletedDate={seletedDate}
+              />
+            }
+          </Modal>
+        </>
       )}
       <CalendarContainer>
         <Button onClick={showModalHandler}>이벤트 추가</Button>
@@ -98,7 +117,6 @@ export const Calendar = () => {
           eventContent={renderEventContent}
           eventClick={(e) => showModalHandler(e)}
           dateClick={dateClickHandler}
-          editable={true}
           eventTextColor="initial"
         />
       </CalendarContainer>

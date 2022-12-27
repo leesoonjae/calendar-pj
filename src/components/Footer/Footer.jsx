@@ -33,10 +33,6 @@ const Footer = () => {
           );
         })}
       </FooterInner>
-      <Quote>
-        "오늘 할 일을 내일로 미루지 말자. 그렇지만 미룬다면 오늘 하루가 즐거울
-        것이다."
-      </Quote>
     </FooterContainer>
   );
 };
@@ -51,7 +47,7 @@ const FooterContainer = styled.div`
   left: 0;
   width: 100%;
   border-top: 1px solid #333;
-  height: 10%;
+  height: 7%;
   margin: auto;
   display: flex;
   align-items: center;
@@ -67,8 +63,3 @@ const FooterInner = styled.div`
 `;
 
 const Name = styled.h3``;
-
-const Quote = styled.div`
-  font-size: 0.9rem;
-  font-weight: bold;
-`;

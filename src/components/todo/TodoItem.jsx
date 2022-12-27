@@ -79,7 +79,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   //   };
   // }, []);
 
-  
   const savePostHandler = () => {
     const newTodo = {
       id: uuidv4(),
@@ -90,10 +89,10 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       comments: [],
     };
 
-    { if(!todoUserIdValue) {
-      alert("이름을 선택해주세요")
+    if (!todoUserIdValue) {
+      alert("이름을 선택해주세요");
       return;
-    }}
+    }
 
     if (!todo) {
       dispatch(__addPost(newTodo));
@@ -109,8 +108,6 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
     };
     dispatch(__updatePost(updateTodo));
     hideModalHandler();
-
-
   };
 
   return (
@@ -140,8 +137,10 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
         type="text"
       />
 
-
       <TodoUserNameStyled
+        placeholder="사용자"
+        contentEditable={true}
+        spellcheck="true"
         onChange={handleUserIdChange}
         value={todoUserIdValue}
       >
@@ -277,4 +276,4 @@ const TodoUserNameStyled = styled.select`
 `;
 // test용 주석
 export default TodoItem;
-// 머지
+

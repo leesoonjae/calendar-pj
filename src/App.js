@@ -2,16 +2,13 @@ import { ThemeProvider } from "styled-components";
 import theme from "./style/theme";
 import "./App.css";
 import { Calendar } from "./components/Calendar/Calendar";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
+import { Router } from "react-router-dom";
 
 function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Header />
-        <Calendar />
-        <Footer />
+        <Router />
       </ThemeProvider>
     </>
   );

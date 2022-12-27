@@ -4,6 +4,7 @@ import axios from "axios";
 // // 초기 상태 값(initialState)
 const initialState = {
   posts: [],
+  post: "",
   idLoading: false,
   error: null,
 };
@@ -103,7 +104,7 @@ const calendarSlice = createSlice({
       state.idLoading = false;
       state.error = action.payload;
     },
-    // 포스트를 조회할 때
+    // 이벤트 조회
     [__getPosts.pending]: (state) => {
       state.idLoading = true;
     },
@@ -122,7 +123,7 @@ const calendarSlice = createSlice({
     [__addPost.fulfilled]: (state, action) => {
       state.idLoading = false;
       console.log(current(state));
-      state.posts = [...state.posts, action.payload ];
+      state.posts = [...state.posts, action.payload];
     },
     [__addPost.rejected]: (state, action) => {
       state.idLoading = false;
@@ -160,29 +161,4 @@ const calendarSlice = createSlice({
   },
 });
 
-export const { addPost, deletePost, addComment, removeComment, updateComment } =
-  calendarSlice.actions;
-
 export default calendarSlice.reducer;
-
-// 초기 상태 값(initialState)
-// const initialState = {
-//   post: [
-//     {
-//       userId: "jaehyun",
-//       Id: "1203004",
-//       title: "리액트공부",
-//       desc: "13~19시까지 리액트 effect hook 학습",
-//       date: "2022-12-22",
-//       comments: [],
-//     },
-//     {
-//       userId: "fesfa",
-//       Id: "12031321004",
-//       title: "리액트공부",
-//       desc: "13~19시까지 리액트 effect hook 학습",
-//       date: "2022-12-22",
-//       comments: [],
-//     },
-//   ],
-// };
