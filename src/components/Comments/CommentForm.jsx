@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { __addComment, __getComment } from "../../redux/modules/commentSlice";
 
 const CommentForm = ({ selectedId }) => {
-  console.log(selectedId);
+  // console.log(selectedId);
   const dispatch = useDispatch();
   // 입력값 state
   const [enteredName, setEnteredName] = useState("");

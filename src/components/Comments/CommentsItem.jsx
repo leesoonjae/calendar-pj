@@ -10,18 +10,10 @@ export const CommentsItem = ({ commentData, selectedId }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [enterdPassword, setEnterdPassword] = useState();
 
-  // console.log(commentData);
+ 
   const dispatch = useDispatch();
 
-  // 수정을 위한 state 관리
-  // const nameChangeHandler = (e) => {
-  //   setUpdateName(e.target.value);
-  // };
-  // const commentChangeHandler = (e) => {
-  //   setUpdateComment(e.target.value);
-  // };
-
-  // 수정
+ 
   const commentUpdateHandler = () => {
     setShowPasswordCheckBox(true);
 
@@ -58,6 +50,7 @@ export const CommentsItem = ({ commentData, selectedId }) => {
               commentData={commentData}
               setIsEdited={setIsEdited}
               setShowPasswordCheckBox={setShowPasswordCheckBox}
+              selectedId={selectedId}
             />
           </>
         ) : (

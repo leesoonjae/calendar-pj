@@ -8,11 +8,10 @@ const ModifiedCommentForm = ({
   commentData,
   setIsEdited,
   setShowPasswordCheckBox,
+  selectedId,
 }) => {
   const [enteredName, setEnteredName] = useState(commentData.name);
   const [enteredComment, setEnteredComment] = useState(commentData.comment);
-
-  console.log(commentData);
 
   const dispatch = useDispatch();
 
@@ -30,7 +29,7 @@ const ModifiedCommentForm = ({
 
     // #TODO 유효성 검사
     const newCommentData = {
-      Id: "1203004",
+      id: commentData.id,
       commentId: commentData.commentId,
       name: enteredName,
       password: commentData.password,
