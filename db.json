@@ -39,72 +39,7 @@
       "userId": "김재현",
       "date": "2022-12-08",
       "desc": "123123123",
-      "comments": [
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "c7c3a6a2-fe07-4aa7-abc2-ee010c3aaec0",
-          "name": "123",
-          "password": "1234",
-          "comment": "123",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "d61f898f-ba7f-4420-b34a-4f90491be68a",
-          "name": "ddd",
-          "password": "dddd",
-          "comment": "dddd",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "bad4c064-994d-4f47-8f7c-f39c1fcdac33",
-          "name": "12312",
-          "password": "1243",
-          "comment": "123",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "742fc48a-0392-4e2c-aa03-b2bfe68313f6",
-          "name": "121",
-          "password": "1123",
-          "comment": "123",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "9e38ffd3-a01a-4f62-9286-6b00de38c317",
-          "name": "123123",
-          "password": "1234",
-          "comment": "123",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "e2c8c872-046d-4541-8e24-8d8d10123642",
-          "name": "123",
-          "password": "1234",
-          "comment": "123",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "a31ebfde-6cc1-433d-ac04-d5b995521fa1",
-          "name": "123",
-          "password": "1234",
-          "comment": "123",
-          "date": "function toISOString() { [native code] }"
-        },
-        {
-          "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
-          "commentId": "4e581fcc-fe14-42e1-b89e-2565ba2e3879",
-          "name": "1232123",
-          "password": "1234",
-          "comment": "123342131",
-          "date": "function toISOString() { [native code] }"
-        }
-      ]
+      "comments": []
     },
     {
       "id": "5928a4c8-7230-474d-9ba3-7cea3745a409",
