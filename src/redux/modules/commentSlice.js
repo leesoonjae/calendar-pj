@@ -25,7 +25,6 @@ export const __addComment = createAsyncThunk(
   "__addComment",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
       const response = await axios.get(
         `http://localhost:3001/posts/${payload.id}`
       );
