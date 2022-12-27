@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
-import { __addComment, __getComment } from "../../redux/modules/commentSlice";
+import { __addComment } from "../../redux/modules/commentSlice";
 
 const CommentForm = ({ selectedId }) => {
   console.log(selectedId);

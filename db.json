@@ -1,35 +1,6 @@
 {
   "posts": [
     {
-<<<<<<< HEAD
-      "id": "e6e814b6-aa2e-45e7-a898-e6193f0674b0",
-      "title": "임시2",
-      "date": "2022-12-09",
-      "desc": "하하하",
-      "userId": "이순재",
-      "comment": 3
-    },
-    {
-      "id": "e6i814b6-aa2e-45e7-a898-e6193f0674b0",
-      "title": "임시4",
-      "date": "2022-12-29",
-      "desc": "하하하",
-      "userId": "김재현"
-    },
-    {
-      "id": "5272d2d3-7355-4e30-9a49-33a1d88c32d4",
-      "userId": "",
-      "title": "안녕",
-      "date": "2022-12-06",
-      "desc": "안녕!"
-    },
-    {
-      "id": "6c0eb62f-0be5-466d-9d1e-8e67c9f80c93",
-      "title": "팀 프로젝트",
-      "date": "2022-12-23",
-      "userId": "정하나",
-      "comment": 1
-=======
       "id": "919eeaa8-0f25-4edb-948b-0d0e18aeb843",
       "title": "1231",
       "userId": "이순재",
@@ -69,7 +40,6 @@
           "date": "function toISOString() { [native code] }"
         }
       ]
->>>>>>> dev
     },
     {
       "id": "7d0e9055-0d53-40d8-a5ac-6bb67177cc73",
@@ -100,18 +70,6 @@
       "id": "5928a4c8-7230-474d-9ba3-7cea3745a409",
       "title": "이름 선택한 데이터",
       "userId": "",
-<<<<<<< HEAD
-      "date": "2022-12-01",
-      "desc": ""
-    },
-    {
-      "id": "395f55e6-82ef-4a50-ac4b-27f3a95cc27a",
-      "title": "자바스크립트",
-      "date": "2022-12-22",
-      "desc": "444",
-      "userId": "변시윤",
-      "comment": 3
-=======
       "date": "2022-12-21",
       "desc": "순재님으로 선택",
       "comments": [
@@ -132,7 +90,6 @@
           "date": "function toISOString() { [native code] }"
         }
       ]
->>>>>>> dev
     }
   ]
 }

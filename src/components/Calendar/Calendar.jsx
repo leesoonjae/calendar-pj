@@ -10,7 +10,6 @@ import { CalenderForm } from "./CalenderForm";
 import { FaRegComment } from "react-icons/fa";
 import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
-import { v4 as uuidv4 } from "uuid";
 
 export const Calendar = () => {
   // 이벤트 데이터
