@@ -25,6 +25,8 @@ const Header = (props) => {
 export default Header;
 
 const HeaderStyled = styled.div`
+  position: absolute;
+  top: 0;
   width: 100%;
   background-color: white;
   height: 10rem;

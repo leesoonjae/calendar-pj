@@ -1,18 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../components/Header/Header";
-import Main from "../components/Main/Main";
 import Calendar from "../components/Calendar/Calendar";
 import Footer from "../components/Footer/Footer";
-import ReadPost from "../components/todo/ReadPost";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route exact path="/" element={<Main />} />
-        <Route path="/:id" element={<ReadPost />} />
+        <Route exact path="/" element={<Calendar />} />
       </Routes>
       <Footer />
     </BrowserRouter>

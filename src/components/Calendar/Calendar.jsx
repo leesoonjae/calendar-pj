@@ -6,82 +6,105 @@ import interactionPlugin from "@fullcalendar/interaction";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
-import { AddPostForm, ReadPostForm } from "./CalendarForm";
+import { CalendarForm } from "./CalendarForm";
 import { FaRegComment } from "react-icons/fa";
 import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
+import { v4 as uuidv4 } from "uuid";
 
 export const Calendar = () => {
   // 이벤트 데이터
-  const { posts, error } = useSelector((state) => state.calendar);
+  const { posts, isLoading, error } = useSelector((state) => state.calendar);
+  const [selectedId, setselectedId] = useState("");
+  const [seletedDate, setSeletedDate] = useState("");
+
+  //새로운 빈 데이터 생성
+
   const dispatch = useDispatch();
 
+  // 데이터 서버에서 불러옴
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
-  //  이벤트 정보 커스텀(타이틀, 코멘트수)
-  const renderEventContent = (eventInfo) => {
-    return (
-      <>
-        <Title>{eventInfo.event.title} </Title>
-        <Comment>
-          {eventInfo.event._def.extendedProps.comment > 0 ? (
-            <FaRegComment size="11" />
-          ) : (
-            ""
-          )}
-          &nbsp;
-          {eventInfo.event._def.extendedProps.comment}
-        </Comment>
-      </>
-    );
+  const handleDetail = (id, posts) => {
+    const postDetail = posts.find((opj) => opj.id === id);
+    setselectedId(id);
+    if (postDetail) {
+      return;
+    } else {
+      alert("해당내용이 없습니다.");
+    }
   };
 
-  // 글 작성 모달
-  const [addPost, setAddPost] = useState(false);
-  const addPostHandler = () => {
-    // console.log(e.event._instance.range.start); 날짜 정보
-    setAddPost(true);
-  };
-  const hideModalHandler = () => {
-    setAddPost(false);
-  };
+  // 모달
+  const [showModal, setShowModal] = useState(false);
 
-  // 상세페이지 모달
-  const [readPost, setReadPost] = useState(false);
-  const readPostHandler = (e) => {
-    setReadPost(true);
-    dispatch(__getPosts(e.event._def.publicId));
+  const dateClickHandler = (e) => {
+    setSeletedDate(e.dateStr);
+    setShowModal(true);
+  };
+  const showModalHandler = (e) => {
+    setShowModal(true);
     window.history.pushState(null, null, `${e.event._def.publicId}`);
   };
-  const hideEventHandler = () => {
-    setReadPost(false);
-    dispatch(__getPosts());
+  const hideModalHandler = () => {
+    setselectedId("");
+    setShowModal(false);
     window.history.pushState(null, null, "/");
   };
 
+  const renderEventContent = (eventInfo) => {
+    const tempPosts = eventInfo.event._context.options.events;
+
+    return (
+      <div
+        onClick={() => {
+          handleDetail(eventInfo.event.id, tempPosts);
+        }}
+      >
+        <Title>
+          {eventInfo.event.title}
+          {""}
+        </Title>
+        <Comment>
+          <FaRegComment size="11" />
+          &nbsp;
+          {eventInfo.event._def.extendedProps.comment}
+        </Comment>
+      </div>
+    );
+  };
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
   if (error) {
     return <>{error.message}</>;
   }
 
   return (
     <>
+      {showModal && (
+        <Modal onClick={hideModalHandler}>
+          {
+            <CalendarForm
+              selectedId={selectedId}
+              hideModalHandler={hideModalHandler}
+              seletedDate={seletedDate}
+            />
+          }
+        </Modal>
+      )}
       <CalendarContainer>
-        <Button onClick={addPostHandler}>이벤트 추가</Button>
-        {addPost && <Modal onClick={hideModalHandler}>{<AddPostForm />}</Modal>}
-        {readPost && (
-          <Modal onClick={hideEventHandler}>{<ReadPostForm />}</Modal>
-        )}
-        {/* 달력 라이브러리 */}
+        <Button onClick={showModalHandler}>이벤트 추가</Button>
         <FullCalendar
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           events={posts}
           eventContent={renderEventContent}
-          eventClick={(e) => readPostHandler(e)}
-          dateClick={addPostHandler}
-          editable={true}
+          eventClick={(e) => showModalHandler(e)}
+          dateClick={dateClickHandler}
           eventTextColor="initial"
         />
       </CalendarContainer>
@@ -91,25 +114,26 @@ export const Calendar = () => {
 
 export default Calendar;
 
+// 스타일
 const CalendarContainer = styled.div`
   margin: 0 auto;
   width: 80%;
   height: 100%;
   align-items: center;
   padding: 2rem;
+  margin-top: 8rem;
 `;
 
-const Title = styled.div`
+const Title = styled.span`
   display: block;
-  width: 88%;
+  width: 78%;
   overflow: hidden;
   text-overflow: ellipsis;
   font-style: normal;
   font-weight: bold;
-  margin-right: 0;
 `;
 
-const Comment = styled.div`
+const Comment = styled.span`
   font-weight: normal;
   float: right;
   margin-top: -1rem;
