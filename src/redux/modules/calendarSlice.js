@@ -71,7 +71,6 @@ export const __deletePost = createAsyncThunk(
     }
   }
 );
-
 // 포스트 업데이트
 export const __updatePost = createAsyncThunk(
   "updatePosts",
