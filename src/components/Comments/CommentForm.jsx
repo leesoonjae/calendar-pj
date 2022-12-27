@@ -3,9 +3,10 @@ import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
-import { addComment } from "../../redux/modules/calendarSlice";
+import { __addComment, __getComment } from "../../redux/modules/commentSlice";
 
 const CommentForm = ({ selectedId }) => {
+  console.log(selectedId);
   const dispatch = useDispatch();
   // 입력값 state
   const [enteredName, setEnteredName] = useState("");
@@ -59,14 +60,15 @@ const CommentForm = ({ selectedId }) => {
     e.preventDefault();
 
     const commentData = {
-      Id: selectedId,
+      id: selectedId,
       commentId: uuidv4(),
       name: enteredName,
       password: enteredPassword,
       comment: enteredComment,
       date: new Date().toISOString.toString(),
     };
-    dispatch(addComment(commentData));
+
+    dispatch(__addComment(commentData));
 
     setEnteredComment("");
     setEnteredName("");

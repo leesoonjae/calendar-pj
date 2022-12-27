@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../UI/Button";
 import { useDispatch } from "react-redux";
-import { removeComment } from "../../redux/modules/calendarSlice";
+import { __deleteComment } from "../../redux/modules/commentSlice";
 import ModifiedCommentForm from "./ModifiedCommentForm";
 
-export const CommentsItem = ({ commentData }) => {
+export const CommentsItem = ({ commentData, selectedId }) => {
   const [showPasswordCheckBox, setShowPasswordCheckBox] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
   const [enterdPassword, setEnterdPassword] = useState();
 
+  // console.log(commentData);
   const dispatch = useDispatch();
 
   // 수정을 위한 state 관리
@@ -43,7 +44,7 @@ export const CommentsItem = ({ commentData }) => {
   const commentDeletedHandler = () => {
     alert("삭제할까요?");
     dispatch(
-      removeComment({ Id: commentData.Id, commentId: commentData.commentId })
+      __deleteComment({ id: commentData.id, commentId: commentData.commentId })
     );
   };
 

@@ -13,18 +13,19 @@ import { v4 as uuidv4 } from "uuid";
 import { BsTrash } from "react-icons/bs";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const TodoItem = ({ seletedId, hideModalHandler, seletedDate }) => {
+const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
   let todo;
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const todos = useSelector((state) => state.calendar.posts);
-  console.log(todos);
-  if (seletedId !== "") {
-    todo = todos.filter((todo) => todo.id === seletedId);
+  // console.log(todos);
+
+  if (selectedId !== "") {
+    todo = todos.filter((todo) => todo.id === selectedId);
   }
 
-  console.log(seletedId);
-  console.log(todo);
+  // console.log(selectedId);
+  // console.log(todo);
 
   // console.log(state);
 
@@ -93,7 +94,7 @@ const TodoItem = ({ seletedId, hideModalHandler, seletedDate }) => {
     }
 
     const updateTodo = {
-      id: seletedId,
+      id: selectedId,
       title: todoTitleValue,
       userId: todoUserIdValue,
       date: todoDateValue,
@@ -131,8 +132,7 @@ const TodoItem = ({ seletedId, hideModalHandler, seletedDate }) => {
       />
 
       <TodoUserNameStyled
-        placeholder="사용자"
-        onChange={handleUserIdChange}
+        onClick={handleUserIdChange}
         value={todoUserIdValue}
       >
         <option value="이순재">이순재</option>
