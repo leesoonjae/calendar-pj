@@ -102,7 +102,6 @@ export const Calendar = () => {
           eventContent={renderEventContent}
           eventClick={(e) => showModalHandler(e)}
           dateClick={dateClickHandler}
-          editable={true}
           eventTextColor="initial"
         />
       </CalendarContainer>
