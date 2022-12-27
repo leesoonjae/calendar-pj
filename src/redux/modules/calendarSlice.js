@@ -75,12 +75,13 @@ export const __deletePost = createAsyncThunk(
 // 포스트 업데이트
 export const __updatePost = createAsyncThunk(
   "updatePosts",
-  async (newTodo, ThunkAPI) => {
+  async (updateTodo, ThunkAPI) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3001/posts/${newTodo.id}`,
-        newTodo
+        `http://localhost:3001/posts/${updateTodo.id}`,
+        updateTodo
       );
+      console.log(response.data);
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -156,7 +157,10 @@ const calendarSlice = createSlice({
     [__updatePost.fulfilled]: (state, action) => {
       console.log("업데이트 성공시", action.payload);
       state.isLoading = false;
-      state.posts = action.payload;
+      const index = state.posts.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.posts.splice(index, 1, action.payload);
     },
     [__updatePost.rejected]: (state, action) => {
       state.isLoading = false;

@@ -16,18 +16,13 @@ export const Calendar = () => {
   // 이벤트 데이터
   const { posts, isLoading, error } = useSelector((state) => state.calendar);
   const [seletedId, setSeletedId] = useState("");
+  const [seletedDate, setSeletedDate] = useState("");
 
   //새로운 빈 데이터 생성
-  const createTodo = {
-    id: uuidv4(),
-    title: "",
-    userId: "",
-    date: "",
-    desc: "",
-  };
 
   const dispatch = useDispatch();
 
+  // 데이터 서버에서 불러옴
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
@@ -42,6 +37,23 @@ export const Calendar = () => {
       alert("해당내용이 없습니다.");
     }
   };
+
+  // 모달
+  const [showModal, setShowModal] = useState(false);
+
+  const dateClickHandler = (e) => {
+    setSeletedDate(e.dateStr);
+    setShowModal(true);
+  };
+  const showModalHandler = () => {
+    setShowModal(true);
+  };
+  const hideModalHandler = () => {
+    setSeletedId("");
+    setShowModal(false);
+  };
+
+
 
   const renderEventContent = (eventInfo) => {
     const tempPosts = eventInfo.event._context.options.events;
@@ -65,26 +77,17 @@ export const Calendar = () => {
     );
   };
 
-  // 모달
-  const [showModal, setShowModal] = useState(false);
-
-  const dateClickHandler = () => {
-    console.log("눌렀다!");
-    setShowModal(true);
-  };
-  const showModalHandler = () => {
-    setShowModal(true);
-  };
-  const hideModalHandler = () => {
-    setSeletedId("");
-    setShowModal(false);
-  };
-
   return (
     <>
       {showModal && (
         <Modal onClick={hideModalHandler}>
-          {<CalenderForm seletedId={seletedId} />}
+          {
+            <CalenderForm
+              seletedId={seletedId}
+              hideModalHandler={hideModalHandler}
+              seletedDate={seletedDate}
+            />
+          }
         </Modal>
       )}
       <CalendarContainer>
@@ -106,6 +109,7 @@ export const Calendar = () => {
 
 export default Calendar;
 
+// 스타일
 const CalendarContainer = styled.div`
   margin: 0 auto;
   width: 80%;
