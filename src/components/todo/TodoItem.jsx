@@ -84,11 +84,9 @@ const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
       comments: [],
     };
 
-    {
-      if (!todoUserIdValue) {
-        alert("이름을 선택해주세요");
-        return;
-      }
+    if (!todoUserIdValue) {
+      alert("이름을 선택해주세요");
+      return;
     }
 
     if (!todo) {
