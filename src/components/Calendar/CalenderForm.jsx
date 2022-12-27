@@ -14,14 +14,19 @@ const TodoTitleContainer = styled.div`
   text-align: start;
 `;
 
-export const CalenderForm = ({ seletedId }) => {
+export const CalenderForm = ({ selectedId, hideModalHandler, seletedDate }) => {
+
   return (
     <>
       <TodoTitleContainer>
-        <TodoItem seletedId={seletedId} />
+        <TodoItem
+          selectedId={selectedId}
+          hideModalHandler={hideModalHandler}
+          seletedDate={seletedDate}
+        />
         <Line px="32px" />
-        <CommentsList />
-        <CommentForm />
+        <CommentsList selectedId={selectedId} />
+        <CommentForm selectedId={selectedId} />
         <Line px="0px" />
       </TodoTitleContainer>
     </>

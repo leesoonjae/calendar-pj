@@ -74,12 +74,18 @@ export const __deletePost = createAsyncThunk(
 // 포스트 업데이트
 export const __updatePost = createAsyncThunk(
   "updatePosts",
-  async (newTodo, ThunkAPI) => {
+  async (updateTodo, ThunkAPI) => {
     try {
       const response = await axios.patch(
+<<<<<<< HEAD
         `http://localhost:3001/posts/${newTodo.id}`,
         newTodo
+=======
+        `http://localhost:3001/posts/${updateTodo.id}`,
+        updateTodo
+>>>>>>> dev
       );
+      // console.log(response.data);
       return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -91,12 +97,7 @@ const calendarSlice = createSlice({
   name: "calendar",
   initialState,
   reducers: {
-    addComment: (state, action) => {
-      return [...state, action.payload];
-    },
-    deleteComment: (state, action) => {
-      return state.filter((item) => item.id !== action.payload);
-    },
+    
   },
   extraReducers: {
     // 캘린더에서 이벤트 조회
@@ -155,7 +156,10 @@ const calendarSlice = createSlice({
     [__updatePost.fulfilled]: (state, action) => {
       console.log("업데이트 성공시", action.payload);
       state.isLoading = false;
-      state.posts = action.payload;
+      const index = state.posts.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.posts.splice(index, 1, action.payload);
     },
     [__updatePost.rejected]: (state, action) => {
       state.isLoading = false;
@@ -164,7 +168,29 @@ const calendarSlice = createSlice({
   },
 });
 
-export const { addPost, deletePost, addComment, deleteComment } =
+export const { addPost, deletePost, addComment, removeComment, updateComment } =
   calendarSlice.actions;
 
 export default calendarSlice.reducer;
+
+// 초기 상태 값(initialState)
+// const initialState = {
+//   post: [
+//     {
+//       userId: "jaehyun",
+//       Id: "1203004",
+//       title: "리액트공부",
+//       desc: "13~19시까지 리액트 effect hook 학습",
+//       date: "2022-12-22",
+//       comments: [],
+//     },
+//     {
+//       userId: "fesfa",
+//       Id: "12031321004",
+//       title: "리액트공부",
+//       desc: "13~19시까지 리액트 effect hook 학습",
+//       date: "2022-12-22",
+//       comments: [],
+//     },
+//   ],
+// };

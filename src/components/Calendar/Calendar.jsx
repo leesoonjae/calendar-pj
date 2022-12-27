@@ -8,39 +8,49 @@ import { Button } from "../UI/Button";
 import { Modal } from "../UI/Modal";
 import { CalenderForm } from "./CalenderForm";
 import { FaRegComment } from "react-icons/fa";
-import { __addPost, __getPosts } from "../../redux/modules/calendarSlice";
+import { __getPosts } from "../../redux/modules/calendarSlice";
 import "./calendar.css";
 import { v4 as uuidv4 } from "uuid";
 
 export const Calendar = () => {
   // 이벤트 데이터
   const { posts, isLoading, error } = useSelector((state) => state.calendar);
-  const [seletedId, setSeletedId] = useState("");
+  const [selectedId, setselectedId] = useState("");
+  const [seletedDate, setSeletedDate] = useState("");
 
   //새로운 빈 데이터 생성
-  const createTodo = {
-    id: uuidv4(),
-    title: "",
-    userId: "",
-    date: "",
-    desc: "",
-  };
 
   const dispatch = useDispatch();
 
+  // 데이터 서버에서 불러옴
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
 
   const handleDetail = (id, posts) => {
     const postDetail = posts.find((opj) => opj.id === id);
-    setSeletedId(id);
-    console.log(postDetail);
+    setselectedId(id);
+    // console.log(postDetail);
     if (postDetail) {
       return;
     } else {
       alert("해당내용이 없습니다.");
     }
+  };
+
+  // 모달
+  const [showModal, setShowModal] = useState(false);
+
+  const dateClickHandler = (e) => {
+    setSeletedDate(e.dateStr);
+    setShowModal(true);
+  };
+  const showModalHandler = () => {
+    setShowModal(true);
+  };
+  const hideModalHandler = () => {
+    setselectedId("");
+    setShowModal(false);
   };
 
   const renderEventContent = (eventInfo) => {
@@ -65,6 +75,7 @@ export const Calendar = () => {
     );
   };
 
+<<<<<<< HEAD
   // 모달
   const [showModal, setShowModal] = useState(false);
 
@@ -79,11 +90,19 @@ export const Calendar = () => {
     setSeletedId("");
     setShowModal(false);
   };
+=======
+>>>>>>> dev
   return (
     <>
       {showModal && (
         <Modal onClick={hideModalHandler}>
-          {<CalenderForm seletedId={seletedId} />}
+          {
+            <CalenderForm
+              selectedId={selectedId}
+              hideModalHandler={hideModalHandler}
+              seletedDate={seletedDate}
+            />
+          }
         </Modal>
       )}
       <CalendarContainer>
@@ -107,6 +126,7 @@ export const Calendar = () => {
 
 export default Calendar;
 
+// 스타일
 const CalendarContainer = styled.div`
   margin: 0 auto;
   width: 80%;

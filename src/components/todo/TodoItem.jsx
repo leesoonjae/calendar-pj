@@ -13,14 +13,23 @@ import { v4 as uuidv4 } from "uuid";
 import { BsTrash } from "react-icons/bs";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-const TodoItem = ({ seletedId }) => {
+const TodoItem = ({ selectedId, hideModalHandler, seletedDate }) => {
+  let todo;
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const todos = useSelector((state) => state.calendar.posts);
-  const todo = todos.filter((todo) => todo.id === seletedId);
+  // console.log(todos);
+
+  if (selectedId !== "") {
+    todo = todos.filter((todo) => todo.id === selectedId);
+  }
+
+  // console.log(selectedId);
+  // console.log(todo);
 
   // console.log(state);
 
+<<<<<<< HEAD
   const [todoTitleValue, setTodoTitleValue] = useState(todo[0].title || "");
   const [todoDateValue, setTodoDateValue] = useState(todo[0].date || "");
   const [todoContentValue, setTodoContentValue] = useState(todo[0].desc || "");
@@ -34,6 +43,20 @@ const TodoItem = ({ seletedId }) => {
   //   else setTodoTitleError(true);
   //   setTodoTitleValue(event.target.value);
   // };
+=======
+  const [todoTitleValue, setTodoTitleValue] = useState(
+    todo ? todo[0].title : ""
+  );
+  const [todoDateValue, setTodoDateValue] = useState(
+    todo ? todo[0].date : seletedDate
+  );
+  const [todoContentValue, setTodoContentValue] = useState(
+    todo ? todo[0].desc : ""
+  );
+  const [todoUserIdValue, setTodoUserIdValue] = useState(
+    todo ? todo[0].userId : ""
+  );
+>>>>>>> dev
 
   const handleTitleChange = (event) => {
     setTodoTitleValue(event.target.value);
@@ -52,8 +75,7 @@ const TodoItem = ({ seletedId }) => {
 
   const handlePostDeleteButton = () => {
     dispatch(__deletePost(todo[0].id));
-
-    // navigate("/");
+    hideModalHandler();
   };
 
   // 순재님 8시간 //
@@ -80,9 +102,22 @@ const TodoItem = ({ seletedId }) => {
       userId: todoUserIdValue,
       date: todoDateValue,
       desc: todoContentValue,
+      comments: [],
     };
+    if (!todo) {
+      dispatch(__addPost(newTodo));
+      hideModalHandler();
+    }
 
-    dispatch(__addPost(newTodo));
+    const updateTodo = {
+      id: selectedId,
+      title: todoTitleValue,
+      userId: todoUserIdValue,
+      date: todoDateValue,
+      desc: todoContentValue,
+    };
+    dispatch(__updatePost(updateTodo));
+    hideModalHandler();
   };
 
   return (
@@ -114,8 +149,7 @@ const TodoItem = ({ seletedId }) => {
       {/* // {todoTitleError && <span>제목을 3글자 이상 적어주세요</span>} */}
 
       <TodoUserNameStyled
-        placeholder="사용자"
-        onChange={handleUserIdChange}
+        onClick={handleUserIdChange}
         value={todoUserIdValue}
       >
         <option value="이순재">이순재</option>
@@ -140,6 +174,7 @@ const TodoItem = ({ seletedId }) => {
   );
 };
 
+// 스타일
 const TodoDatePicker = styled.input`
   width: 100%;
   padding: 0.5rem 2px;
