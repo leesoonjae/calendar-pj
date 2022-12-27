@@ -21,17 +21,21 @@ const TodoItem = ({ seletedId }) => {
 
   // console.log(state);
 
-  const [todoTitleValue, setTodoTitleValue] = useState(todo[0].title);
-  const [todoDateValue, setTodoDateValue] = useState(todo[0].date);
-  const [todoContentValue, setTodoContentValue] = useState(todo[0].desc);
-  const [todoUserIdValue, setTodoUserIdValue] = useState(todo[0].userId);
+  const [todoTitleValue, setTodoTitleValue] = useState(todo[0].title || "");
+  const [todoDateValue, setTodoDateValue] = useState(todo[0].date || "");
+  const [todoContentValue, setTodoContentValue] = useState(todo[0].desc || "");
+  const [todoUserIdValue, setTodoUserIdValue] = useState(todo[0].userId || "");
 
   // title input창에 있는 현재 value를 받아오는 이벤트
+  // const handleTitleChange = (event) => {
+  //   const titleRegex = /^[A-Za-z0-9+]{3,}$/;
+  //   if (!event.target.value || titleRegex.test(event.target.value))
+  //     setTodoTitleError(false);
+  //   else setTodoTitleError(true);
+  //   setTodoTitleValue(event.target.value);
+  // };
+
   const handleTitleChange = (event) => {
-    const titleRegex = /^[A-Za-z0-9+]{3,}$/;
-    if (!event.target.value || titleRegex.test(event.target.value))
-      setTodoTitleError(false);
-    else setTodoTitleError(true);
     setTodoTitleValue(event.target.value);
   };
 
@@ -107,7 +111,7 @@ const TodoItem = ({ seletedId }) => {
         value={todoTitleValue}
         type="text"
       />
-      {todoTitleError && <span>제목을 3글자 이상 적어주세요</span>}
+      {/* // {todoTitleError && <span>제목을 3글자 이상 적어주세요</span>} */}
 
       <TodoUserNameStyled
         placeholder="사용자"

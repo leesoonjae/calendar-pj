@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 // // 초기 상태 값(initialState)
 const initialState = {
