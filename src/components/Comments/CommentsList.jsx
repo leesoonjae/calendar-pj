@@ -4,16 +4,13 @@ import { CommentsItem } from "./CommentsItem";
 import { __getComment } from "../../redux/modules/commentSlice";
 
 const CommentsList = ({ selectedId }) => {
-  const { comments, isLoading, error } = useSelector((state) => state.comment);
+  const { comments, error } = useSelector((state) => state.comment);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(__getComment(selectedId));
   }, []);
 
-  if (isLoading) {
-    return <>Loading...</>;
-  }
   if (error) {
     return <>{error.message}</>;
   }

@@ -56,6 +56,8 @@ export const Calendar = () => {
 
   const renderEventContent = (eventInfo) => {
     const tempPosts = eventInfo.event._context.options.events;
+    const title = eventInfo.event.title;
+    const commentTitle = eventInfo.event.title;
     const commentCount = eventInfo.event._def.extendedProps.comments.length;
 
     return (
@@ -64,10 +66,13 @@ export const Calendar = () => {
           handleDetail(eventInfo.event.id, tempPosts);
         }}
       >
-        <Title>
-          {eventInfo.event.title}
-          {""}
-        </Title>
+        <>
+          {commentCount > 0 ? (
+            <CommentTitle>{commentTitle}</CommentTitle>
+          ) : (
+            <Title>{title}</Title>
+          )}
+        </>
         <Comment>
           {commentCount > 0 ? <FaRegComment size="11" /> : null}
           &nbsp;
@@ -115,20 +120,24 @@ export default Calendar;
 
 // 스타일
 const CalendarContainer = styled.div`
-  margin: 0 auto;
-  width: 80%;
-  height: 100%;
+  margin: 2rem auto;
+  margin-bottom: 10rem;
+  width: 55%;
   align-items: center;
-  padding: 2rem;
 `;
 
 const Title = styled.span`
   display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const CommentTitle = styled.span`
+  display: block;
   width: 78%;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-style: normal;
-  font-weight: bold;
 `;
 
 const Comment = styled.span`

@@ -17,9 +17,8 @@ export default Header;
 
 const HeaderStyled = styled.div`
   width: 100%;
-  height: 18%;
+  margin-top: 2%;
   background-color: white;
-  border-bottom: 1px solid #333;
   z-index: 5;
   display: flex;
   flex-direction: column;
