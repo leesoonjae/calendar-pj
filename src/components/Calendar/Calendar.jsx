@@ -12,7 +12,7 @@ import "./calendar.css";
 
 export const Calendar = () => {
   // 투두리스트 데이터
-  const { posts, error } = useSelector((state) => state.calendar);
+  const { posts } = useSelector((state) => state.calendar);
 
   const [selectedId, setselectedId] = useState("");
   const [seletedDate, setSeletedDate] = useState("");
@@ -81,10 +81,6 @@ export const Calendar = () => {
       </div>
     );
   };
-
-  if (error) {
-    alert(error.message);
-  }
 
   return (
     <>
